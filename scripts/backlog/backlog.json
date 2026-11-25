@@ -272,7 +272,7 @@
     "area:web",
     "area:db"
    ],
-   "body": "D-007, D-008. Q-012/Q-013 open."
+   "body": "D-007, D-008, D-029: account-wide setting; logs auto-associated with all claimed participants; visibility evaluated per participant page. See docs/design/web/log-submission-and-privacy.md#visibility"
   },
   {
    "milestone": "M1 Tenhou MVP",
@@ -315,15 +315,6 @@
     "needs-design"
    ],
    "body": "Not yet mocked (user-interface.md)."
-  },
-  {
-   "milestone": "M1 Tenhou MVP",
-   "title": "Decide privacy questions Q-010, Q-012, Q-013",
-   "labels": [
-    "blocked:owner",
-    "needs-design"
-   ],
-   "body": "Profile opt-out, per-log override, conflicting table-mate settings."
   },
   {
    "milestone": "M1 Tenhou MVP",

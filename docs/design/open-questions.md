@@ -5,10 +5,10 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 
 | ID | Area | Question | Owner | Status |
 |---|---|---|---|---|
-| Q-010 | Privacy | Can a player **hide their profile** (opt-out) even though the data is public on the source site? Takedown process? | Owner | Open |
+| Q-010 | Privacy | Can a player **hide their profile** (opt-out) even though the data is public on the source site? Takedown process? | Owner | **Resolved → D-030** |
 | Q-011 | Product | Are leagues/clubs (persona P5) in scope for v1? (assumed no) | Owner | Open |
-| Q-012 | Privacy | Log visibility: account-wide only, or **per-log override** (e.g. make one game public)? | Owner | Open |
-| Q-013 | Privacy | When table-mates choose different visibility, does the **strictest** setting among claimed participants win, or each uploader's choice? (Tenhou logs show all 4 hands.) | Owner | Open |
+| Q-012 | Privacy | Log visibility: account-wide only, or **per-log override** (e.g. make one game public)? | Owner | **Resolved → D-029** |
+| Q-013 | Privacy | When table-mates choose different visibility, does the **strictest** setting among claimed participants win, or each uploader's choice? (Tenhou logs show all 4 hands.) | Owner | **Resolved → D-029** |
 | Q-020 | Auth | LINE login for JP users (custom OIDC)? (post-v1) | Owner | Deferred |
 | Q-021 | Auth | Apple login (needs $99/yr Apple dev account)? (post-v1) | Owner | Deferred |
 | Q-022 | Auth | Tenhou verification tightening (post-claim logs, ≥5 days)? | Owner | **Resolved → D-022 (no conditions)** |
@@ -36,5 +36,5 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-080 | UI | Brand: logo/wordmark, colour palette — mockups use a placeholder 中 tile mark + teal. | Owner | Open |
 | Q-081 | UI | Logo usage terms for Mahjong Soul / Tenhou icons. | Claude | Open |
 | Q-082 | i18n | Japanese copy: who reviews translations? | Owner | Open |
-| Q-026 | Auth | Premium import with a Tenhou ID that belongs to a *different* player than the user's already-verified Tenhou claim: block, or ask before switching? | Owner | Open |
-| Q-083 | UI | Rank-progress chart with several platforms: platform picker (chip per linked platform, default most-played; proposed) vs overlay; optional "Compare" view plotting percentile within each platform? | Owner | Open (canvas thread) |
+| Q-026 | Auth | Premium import with a Tenhou ID that belongs to a *different* player than the user's already-verified Tenhou claim: block, or ask before switching? | Owner | **Resolved → D-028** |
+| Q-083 | UI | Rank-progress chart with several platforms: platform picker (chip per linked platform, default most-played; proposed) vs overlay; optional "Compare" view plotting percentile within each platform? | Owner | **Resolved → D-027** |

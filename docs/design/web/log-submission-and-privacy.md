@@ -26,15 +26,21 @@ Status: **Accepted** (D-007, D-008, D-012, D-013, D-015, D-019) with open sub-qu
 ### Missing-logs list (D-019)
 Games known from Tenhou public results (`scb`) for the user's claimed player that have no full log → listed with date/room/placement/table. Each row has a **Submit log** button opening a modal for that game's log URL; the submitted log must match the game (start hour, room, players). On success the row disappears and the next missing game is shown (D-025).
 
-## Visibility (D-007, D-008)
-Each user has a **log visibility** setting applied to logs they submitted / logs of their verified players:
+## Visibility (D-007, D-008, D-029)
+Each user has one account-wide **log visibility** setting (no per-log overrides in v1):
 
-| Setting | Who can open replay link & per-game detail |
+| Setting | Who can reach the log (replay link & per-game detail) **from this user's pages** |
 |---|---|
 | **Private** (default) | the user only |
 | Players at the table | signed-in users with a claimed player in that game |
 | Public | anyone |
 
-Stats (aggregates) are always visible. Per-hand data of *other* players derived from a log is aggregated into their stats but the log itself follows the rules above.
+**Association:** a log submitted by anyone is automatically associated with every participant who has, or later binds, a
+claimed account — exactly as if each had submitted it themselves.
 
-Open: per-log overrides (Q-012); conflicting settings among table-mates (Q-013, proposal: strictest wins).
+**Per-page evaluation:** whether a log is linked is decided separately for each participant's page using *that*
+participant's setting. Example: A (Public) and B (Private) played together; A's page links the log for everyone, B's
+page does not. A's choice never exposes the log through B's page; only B's experience differs. Direct log URLs are
+unguessable IDs; access check = "viewer is allowed by at least one participant whose page they came from".
+
+Stats (aggregates) are always visible, and there is **no profile hiding** (D-030).

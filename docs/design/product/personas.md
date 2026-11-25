@@ -34,5 +34,5 @@ anyRiichi targets English- and Japanese-speaking riichi mahjong players who play
 - Needs: ingestion health dashboards, re-processing tools, account linking disputes, abuse handling, takedown/opt-out requests.
 
 ## Open questions
-- Q-010: Do we allow players to *hide* their profile (opt-out) even when the data is public on the source site?
+- ~~Q-010~~ Resolved → D-030: no profile hiding.
 - Q-011: Is P5 (leagues) in scope for v1?

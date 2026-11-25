@@ -11,7 +11,7 @@ profiles(
   user_id uuid PK references auth.users,
   handle text unique,                -- for /u/{handle}
   locale text check (locale in ('en','ja')),
-  log_visibility text not null default 'private'  -- private | table | public (D-008)
+  log_visibility text not null default 'private'  -- private | table | public (D-008, evaluated per participant page: D-029)
     check (log_visibility in ('private','table','public')),
   created_at timestamptz)
 
