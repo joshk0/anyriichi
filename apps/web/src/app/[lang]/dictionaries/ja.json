@@ -1,14 +1,60 @@
 {
   "_review": "Machine-drafted Japanese; pending human review (D-037).",
-  "meta": { "title": "anyRiichi", "description": "天鳳と雀魂の成績をまとめて分析。" },
-  "nav": { "leaderboards": "ランキング", "submit": "牌譜を登録", "signIn": "ログイン", "language": "言語" },
+  "meta": {
+    "title": "anyRiichi",
+    "description": "天鳳と雀魂の成績をまとめて分析。"
+  },
+  "nav": {
+    "leaderboards": "ランキング",
+    "submit": "牌譜を登録",
+    "signIn": "ログイン",
+    "language": "言語"
+  },
   "home": {
     "headline": "すべてのプラットフォームの成績を、ひとつに。",
     "sub": "天鳳と雀魂の順位率・段位推移・局ごとの詳細スタッツをまとめて確認できます。",
     "searchLabel": "プレイヤー検索",
     "searchPlaceholder": "プレイヤー名で検索…",
-    "comingSoon": "準備中 — プレイヤー検索は天鳳MVPで公開予定です。",
-    "placementDemo": "順位分布（サンプル）"
+    "comingSoon": "プロトタイプ：直近48時間の段位戦に出場した天鳳プレイヤーを検索できます。",
+    "placementDemo": "順位分布（サンプル）",
+    "searchSubmit": "検索"
   },
-  "placement": { "1": "1位", "2": "2位", "3": "3位", "4": "4位" }
+  "placement": {
+    "1": "1位",
+    "2": "2位",
+    "3": "3位",
+    "4": "4位"
+  },
+  "search": {
+    "title": "検索結果",
+    "none": "「{q}」に一致する天鳳プレイヤーは見つかりませんでした。",
+    "prompt": "天鳳のプレイヤー名を入力してください。",
+    "lastSeen": "最終対局"
+  },
+  "player": {
+    "notFound": "このプレイヤーの天鳳の対局はまだありません。",
+    "games": "対局数",
+    "avgPlacement": "平均順位",
+    "avgPt": "平均pt",
+    "totalPt": "合計pt",
+    "recent": "最近の対局",
+    "date": "日時",
+    "room": "卓",
+    "place": "順位",
+    "pt": "pt",
+    "rankPt": "段位pt",
+    "score": "素点",
+    "sample": "取得済みの直近{n}戦の集計です。プロトタイプ：{since}以降のデータ。",
+    "fourP": "四麻",
+    "threeP": "三麻",
+    "east": "東",
+    "south": "南",
+    "fast": "速"
+  },
+  "lobby": {
+    "ippan": "一般",
+    "joukyuu": "上級",
+    "tokujou": "特上",
+    "houou": "鳳凰"
+  }
 }

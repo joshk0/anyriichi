@@ -70,3 +70,6 @@ VALUES (
   (SELECT gp.player_id FROM public.game_participants gp WHERE gp.game_id = sqlc.arg(game_id) AND gp.seat = sqlc.arg(seat)),
   sqlc.arg(won), sqlc.narg(won_by), sqlc.arg(dealt_in), sqlc.arg(riichi), sqlc.arg(called), sqlc.narg(tenpai_at_draw),
   sqlc.narg(han), sqlc.narg(fu), sqlc.narg(win_value), sqlc.narg(deal_in_value), sqlc.arg(yaku), sqlc.arg(score_delta));
+
+-- name: ListStoredTenhouLogs :many
+SELECT log_id, raw_gz FROM private.tenhou_logs WHERE status = 'stored' AND raw_gz IS NOT NULL ORDER BY log_id;

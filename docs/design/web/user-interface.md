@@ -18,3 +18,11 @@ Status: **Proposed — direction reviewed by owner 2026-11-25** · Mockups: [des
 
 ## Not yet mocked
 Home/search, leaderboards, combined user page `/u/{handle}`, sign-up/onboarding flow, Japanese locale, game detail page, AI-review export menu, admin/operator console.
+
+## Prototype pages (2026-11-26, not the final design)
+To verify Tenhou ingestion end to end, the web app has minimal pages built from the mockup tokens:
+home search (`/[lang]` → `/[lang]/search?q=`, Tenhou name prefix) and a Tenhou player page
+(`/[lang]/tenhou/[name]`: per-mode games / avg placement / avg ±pt / placement bar / latest rank, and
+the 50 most recent games with score, ±pt and rank pt). Data is read server-side from public tables
+via PostgREST with the anon key, cached for minutes (`use cache`). The full player page from the
+mockups replaces these once its design is implemented.

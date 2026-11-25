@@ -107,7 +107,8 @@ func TestParseMjlog(t *testing.T) {
 	h0 := l.Hands[0]
 	if h0.Outcome != "ron" || !h0.Players[0].Won || h0.Players[0].WonBy != "ron" || !h0.Players[0].Riichi ||
 		h0.Players[0].Han != 3 || h0.Players[0].Fu != 30 || h0.Players[0].WinValue != 7700 ||
-		!h0.Players[2].DealtIn || h0.Players[2].DealInValue != 7700 || h0.Players[2].ScoreDelta != -7700 {
+		!h0.Players[2].DealtIn || h0.Players[2].DealInValue != 7700 || h0.Players[2].ScoreDelta != -7700 ||
+		h0.Players[0].ScoreDelta != 7700 { // +8700 incl. own stick back, −1000 deposit
 		t.Errorf("hand 0: %+v", h0)
 	}
 	if !h0.Players[1].Called || h0.Players[3].Called != true { // 51786 = pon, 4127 = chi

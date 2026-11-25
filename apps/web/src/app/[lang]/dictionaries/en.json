@@ -1,13 +1,59 @@
 {
-  "meta": { "title": "anyRiichi", "description": "Riichi mahjong stats across Tenhou and Mahjong Soul." },
-  "nav": { "leaderboards": "Leaderboards", "submit": "Submit logs", "signIn": "Sign in", "language": "Language" },
+  "meta": {
+    "title": "anyRiichi",
+    "description": "Riichi mahjong stats across Tenhou and Mahjong Soul."
+  },
+  "nav": {
+    "leaderboards": "Leaderboards",
+    "submit": "Submit logs",
+    "signIn": "Sign in",
+    "language": "Language"
+  },
   "home": {
     "headline": "Your riichi mahjong stats, across every platform.",
     "sub": "Placement rates, rank progress and detailed per-hand stats for Tenhou and Mahjong Soul — in one place.",
     "searchLabel": "Search players",
     "searchPlaceholder": "Search a player on any platform…",
-    "comingSoon": "Under construction — player search arrives with the Tenhou MVP.",
-    "placementDemo": "Placement distribution (sample)"
+    "comingSoon": "Prototype: Tenhou players from the last 48 hours of ranked games.",
+    "placementDemo": "Placement distribution (sample)",
+    "searchSubmit": "Search"
   },
-  "placement": { "1": "1st", "2": "2nd", "3": "3rd", "4": "4th" }
+  "placement": {
+    "1": "1st",
+    "2": "2nd",
+    "3": "3rd",
+    "4": "4th"
+  },
+  "search": {
+    "title": "Search results",
+    "none": "No Tenhou player found for “{q}”.",
+    "prompt": "Type a Tenhou player name.",
+    "lastSeen": "Last seen"
+  },
+  "player": {
+    "notFound": "No Tenhou games found for this player yet.",
+    "games": "Games",
+    "avgPlacement": "Avg placement",
+    "avgPt": "Avg ±pt",
+    "totalPt": "Total ±pt",
+    "recent": "Recent games",
+    "date": "Date",
+    "room": "Room",
+    "place": "Place",
+    "pt": "±pt",
+    "rankPt": "Rank pt",
+    "score": "Score",
+    "sample": "Stats from the {n} most recent games we have. Prototype — data starts from {since}.",
+    "fourP": "4-player",
+    "threeP": "3-player",
+    "east": "East",
+    "south": "South",
+    "fast": "fast"
+  },
+  "lobby": {
+    "ippan": "Ippan",
+    "joukyuu": "Joukyuu",
+    "tokujou": "Tokujou",
+    "houou": "Houou"
+  }
 }

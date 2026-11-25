@@ -162,6 +162,35 @@ func (q *Queries) InsertHandPlayerStats(ctx context.Context, arg InsertHandPlaye
 	return err
 }
 
+const listStoredTenhouLogs = `-- name: ListStoredTenhouLogs :many
+SELECT log_id, raw_gz FROM private.tenhou_logs WHERE status = 'stored' AND raw_gz IS NOT NULL ORDER BY log_id
+`
+
+type ListStoredTenhouLogsRow struct {
+	LogID string `json:"log_id"`
+	RawGz []byte `json:"raw_gz"`
+}
+
+func (q *Queries) ListStoredTenhouLogs(ctx context.Context) ([]ListStoredTenhouLogsRow, error) {
+	rows, err := q.db.Query(ctx, listStoredTenhouLogs)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListStoredTenhouLogsRow{}
+	for rows.Next() {
+		var i ListStoredTenhouLogsRow
+		if err := rows.Scan(&i.LogID, &i.RawGz); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const markTenhouLog = `-- name: MarkTenhouLog :exec
 UPDATE private.tenhou_logs
 SET status = $1::text, reject_reason = $2::text,

@@ -119,9 +119,10 @@ func main() {
 // runCommand handles one-off CLI commands:
 //
 //	worker enqueue <tenhou log id or URL>…   queue full-log fetches (as a submission)
+//	worker reparse                           re-derive rows from stored raw logs (no network)
 func runCommand(cfg config.Config, args []string) int {
-	if args[0] != "enqueue" || len(args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: worker enqueue <tenhou log id or URL>...")
+	if !(args[0] == "enqueue" && len(args) >= 2) && !(args[0] == "reparse" && len(args) == 1) {
+		fmt.Fprintln(os.Stderr, "usage: worker enqueue <tenhou log id or URL>... | worker reparse")
 		return 2
 	}
 	ctx := context.Background()
@@ -132,6 +133,15 @@ func runCommand(cfg config.Config, args []string) int {
 	}
 	defer pool.Close()
 	th := ingest.NewTenhou(pool, tenhou.NewClient(cfg.UserAgent), slog.Default(), ingest.TenhouConfig{})
+	if args[0] == "reparse" {
+		n, err := th.Reparse(ctx)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "reparse:", err)
+			return 1
+		}
+		fmt.Printf("reparsed %d logs\n", n)
+		return 0
+	}
 	code := 0
 	for _, a := range args[1:] {
 		ref := logref.Parse(a)

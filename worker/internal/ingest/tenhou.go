@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -405,4 +406,31 @@ func (t *Tenhou) fail(ctx context.Context, logID, reason string, err error) erro
 		return merr
 	}
 	return err
+}
+
+// Reparse re-derives games and per-hand rows from stored raw logs (no network), e.g. after a
+// parser change. Returns the number of logs reparsed.
+func (t *Tenhou) Reparse(ctx context.Context) (int, error) {
+	logs, err := t.q.ListStoredTenhouLogs(ctx)
+	if err != nil {
+		return 0, err
+	}
+	for _, l := range logs {
+		zr, err := gzip.NewReader(bytes.NewReader(l.RawGz))
+		if err != nil {
+			return 0, fmt.Errorf("%s: %w", l.LogID, err)
+		}
+		raw, err := io.ReadAll(zr)
+		if err != nil {
+			return 0, fmt.Errorf("%s: %w", l.LogID, err)
+		}
+		parsed, err := tenhou.ParseMjlogBytes(raw)
+		if err != nil {
+			return 0, fmt.Errorf("%s: %w", l.LogID, err)
+		}
+		if _, err := t.storeLog(ctx, l.LogID, parsed, raw); err != nil {
+			return 0, fmt.Errorf("%s: %w", l.LogID, err)
+		}
+	}
+	return len(logs), nil
 }

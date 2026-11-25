@@ -78,7 +78,18 @@ func TestRunProcessesRetriesAndFails(t *testing.T) {
 
 	// ok + bad + first flaky failure, then force the flaky retry to be due now.
 	wait(t, done, 2)
-	waitState(t, q, flakyID, "pending")
+	// Wait for the first (failed) flaky attempt; the job is pending before it too.
+	deadline := time.Now().Add(10 * time.Second)
+	for {
+		j, err := q.q.GetJob(ctx, flakyID)
+		if err == nil && j.State == "pending" && j.Attempts == 1 {
+			break
+		}
+		if time.Now().After(deadline) {
+			t.Fatalf("flaky job never failed once: %+v %v", j, err)
+		}
+		time.Sleep(20 * time.Millisecond)
+	}
 	if _, err := pool.Exec(ctx, "update queue.jobs set run_at = now() where id = $1", flakyID); err != nil {
 		t.Fatal(err)
 	}

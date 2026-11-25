@@ -51,7 +51,7 @@ type HandPlayer struct {
 	WinValue     int
 	DealInValue  int
 	Yaku         []int
-	ScoreDelta   int
+	ScoreDelta   int // net points this hand, including riichi deposits
 }
 
 // abortive draw types (RYUUKYOKU type attribute); exhaustive draws have no type or nm (nagashi mangan).
@@ -133,9 +133,15 @@ func ParseMjlog(r io.Reader) (*Log, error) {
 			cur = &Hand{Round: seed[0], Honba: seed[1], RiichiSticks: seed[2], Dealer: dealer,
 				Players: make([]HandPlayer, l.Players)}
 		case "REACH":
-			if cur != nil && a["step"] == "1" {
-				if w, ok := seat(a["who"], l.Players); ok {
+			if cur == nil {
+				continue
+			}
+			if w, ok := seat(a["who"], l.Players); ok {
+				switch a["step"] {
+				case "1": // declared
 					cur.Players[w].Riichi = true
+				case "2": // accepted: the 1000-point deposit leaves the player (sc excludes it)
+					cur.Players[w].ScoreDelta -= 1000
 				}
 			}
 		case "N":
