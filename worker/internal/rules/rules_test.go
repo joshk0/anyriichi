@@ -128,7 +128,7 @@ func TestNamesAndErrors(t *testing.T) {
 	if _, err := ResultPt("tenhou", 3, 30000, 4); err == nil {
 		t.Error("want error for placement 4 in 3p")
 	}
-	if _, err := MajsoulRankDelta(20201, MajsoulGame{Mode: 18, Score: 30000, Placement: 1}); err == nil {
+	if _, err := MajsoulRankDelta(10401, MajsoulGame{Mode: 13, Score: 30000, Placement: 1}); err == nil {
 		t.Error("want error for unsupported mode")
 	}
 }

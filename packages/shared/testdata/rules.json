@@ -33,6 +33,7 @@
     { "name": "3p Saint 1, throne south 3rd", "levelId": 20501, "points": 3000, "mode": 26, "score": 10000, "placement": 3, "expect": { "delta": -280, "levelId": 20501, "points": 2720, "event": null } },
     { "name": "Adept 1, bronze south 2nd", "levelId": 10201, "points": 300, "mode": 3, "score": 28000, "placement": 2, "expect": { "delta": 18, "levelId": 10201, "points": 318, "event": null } },
     { "name": "Adept 3, silver east 4th (penalty 30)", "levelId": 10203, "points": 500, "mode": 5, "score": 15000, "placement": 4, "expect": { "delta": -55, "levelId": 10203, "points": 445, "event": null } },
+    { "name": "3p Adept 2, silver south 1st", "levelId": 20202, "points": 400, "mode": 20, "score": 50000, "placement": 1, "expect": { "delta": 90, "levelId": 20202, "points": 490, "event": null } },
     { "name": "3p gold east 1st", "levelId": 20301, "points": 600, "mode": 21, "score": 50000, "placement": 1, "expect": { "delta": 85, "levelId": 20301, "points": 685, "event": null } }
   ],
   "tenhouSupported": [

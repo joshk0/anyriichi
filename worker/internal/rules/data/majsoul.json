@@ -1,5 +1,5 @@
 {
-  "$comment": "Mahjong Soul ranked rules. Source: Amae Koromo (MIT) src/data/types/{level,metadata,gameMode}.ts @ 78bb14534c (2026-11-22). Gold/Jade/Throne from Amae Koromo. 4p Bronze/Silver bonuses from riichi.wiki/Mahjong_Soul + npmahjong.com rank-up guide (agree); their mode ids (2,3,5,6) are inferred from the id pattern, not verified. 3p Bronze/Silver not modelled (no verified bonuses) — use the record's own grading score (D-048). Edit together with worker/internal/rules/data/majsoul.json (a test enforces equality).",
+  "$comment": "Mahjong Soul ranked rules. Source: Amae Koromo (MIT) src/data/types/{level,metadata,gameMode}.ts @ 78bb14534c (2026-11-22). Mode ids, rooms and placement bonuses (levelpoint1-2) cross-checked against the game's own desktop/matchmode table (export: github.com/4n3u/MajsoulData data/tables/desktop/matchmode.json, 2026-11-24). Rooms: bronze/silver/gold/jade/throne = matchmode room 1/2/3/4/6. Edit together with worker/internal/rules/data/majsoul.json (a test enforces equality).",
   "scoring": {
     "4": { "startPoints": 25000, "returnPoints": 25000, "uma": [15, 5, -5, -15] },
     "3": { "startPoints": 35000, "returnPoints": 35000, "uma": [15, 0, -15] }
@@ -15,6 +15,10 @@
     "8":  { "room": "gold",   "players": 4, "length": "east",  "placementBonus": [40, 20, 0, 0],   "penaltyTable": "4e" },
     "11": { "room": "jade",   "players": 4, "length": "east",  "placementBonus": [55, 30, 0, 0],   "penaltyTable": "4e" },
     "15": { "room": "throne", "players": 4, "length": "east",  "placementBonus": [60, 30, 0, 0],   "penaltyTable": "4e", "kontenDelta": [30, 10, -10, -30] },
+    "18": { "room": "bronze", "players": 3, "length": "south", "placementBonus": [30, 0, 0],       "penaltyTable": "3s" },
+    "20": { "room": "silver", "players": 3, "length": "south", "placementBonus": [60, 0, 0],       "penaltyTable": "3s" },
+    "17": { "room": "bronze", "players": 3, "length": "east",  "placementBonus": [15, 0, 0],       "penaltyTable": "3e" },
+    "19": { "room": "silver", "players": 3, "length": "east",  "placementBonus": [30, 0, 0],       "penaltyTable": "3e" },
     "22": { "room": "gold",   "players": 3, "length": "south", "placementBonus": [105, 0, 0],      "penaltyTable": "3s" },
     "24": { "room": "jade",   "players": 3, "length": "south", "placementBonus": [160, 0, 0],      "penaltyTable": "3s" },
     "26": { "room": "throne", "players": 3, "length": "south", "placementBonus": [240, 0, 0],      "penaltyTable": "3s", "kontenDelta": [50, 0, -50] },

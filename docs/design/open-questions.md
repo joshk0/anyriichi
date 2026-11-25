@@ -24,6 +24,7 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-041 | Data | Store raw logs where? Supabase Storage vs GCS vs R2 (cost/egress). | Claude | **Resolved → D-039** (Supabase Storage) |
 | Q-042 | Stats | Majsoul rank-point and uma tables per room (Gold/Jade/Throne, 3p/4p, Konten) — verify against official sources. | Claude | Resolved → D-045 |
 | Q-043 | Stats | Ties in placement (Tenhou breaks by seat; Majsoul too) — confirm per platform. | Claude | Resolved → statistics-model §1 (use platform placement) |
+| Q-044 | Stats | Mahjong Soul `matchmode` lists `init_point` 25000 / `back_point` 30000 (3p 35000/40000), implying Tenhou-like oka, while our ±pt uses return = start (no oka, per Amae Koromo's rank formula). Check a real record's `total_point` in M2 and fix `majsoul.json` scoring if the in-game ±pt includes oka. | Claude | Open |
 | Q-050 | Extension | Extension auth to anyRiichi: Supabase session in extension vs. personal API token? | Claude | Open |
 | Q-051 | Extension | Chrome Web Store + Firefox AMO publishing accounts (Chrome $5 one-time) — owner to create. | Owner | **Resolved → D-038** |
 | Q-052 | Extension | Majsoul extension: what is the API for listing a user's paipu, and does using the user's own token in-page breach ToS? (user-side, low risk) | Claude | Open |
