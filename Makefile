@@ -1,7 +1,7 @@
 # Convenience targets. Node tooling runs through corepack (no global pnpm needed).
 PNPM := COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm
 
-.PHONY: install dev build test lint typecheck worker-build worker-test worker-run check
+.PHONY: install dev build test lint typecheck worker-build worker-test worker-run worker-deploy check
 
 install:
 	$(PNPM) install
@@ -31,3 +31,6 @@ worker-run:
 	cd worker && go run ./cmd/worker
 
 check: typecheck lint test
+
+worker-deploy:
+	deploy/worker/deploy.sh $(if $(ENV),--env,)
