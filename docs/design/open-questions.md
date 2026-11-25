@@ -36,3 +36,4 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-080 | UI | Brand: logo/wordmark, colour palette — mockups use a placeholder 中 tile mark + teal. | Owner | Open |
 | Q-081 | UI | Logo usage terms for Mahjong Soul / Tenhou icons. | Claude | Open |
 | Q-082 | i18n | Japanese copy: who reviews translations? | Owner | Open |
+| Q-026 | Auth | Premium import with a Tenhou ID that belongs to a *different* player than the user's already-verified Tenhou claim: block, or ask before switching? | Owner | Open |
