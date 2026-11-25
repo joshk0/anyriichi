@@ -33,7 +33,7 @@ reimplemented.
 |---|---|---|
 | **tenhou.net/6 JSON format** (Tenhou) | Canonical interchange format for full game logs (D-021) | `docs/design/worker/log-conversion.md` |
 | **tensoul** (MIT), **Majsoul-to-NAGA** by honvl — [github](https://github.com/honvl/Majsoul-to-NAGA) (MIT) | Reference for converting Mahjong Soul records to tenhou.net/6 | `docs/research/platforms-and-review-tools.md` |
-| **Euophrys/tenhou-log** — [github](https://github.com/Euophrys/tenhou-log) | Tenhou client `localStorage` log-list format (for the browser extension) | `docs/design/extension/browser-extension.md` |
+| **Euophrys/tenhou-log** — [github](https://github.com/Euophrys/tenhou-log) | Tenhou client `localStorage` log-list format (for the browser extension); mjlog XML tag reference (INIT, draws/discards, N meld codes, REACH, AGARI, RYUUKYOKU) used by our parser | `docs/design/extension/browser-extension.md`, `worker/internal/tenhou/mjlog.go` |
 | **Benawii's Tenhou log collector** | Windows client log-list format | `docs/research/platforms-and-review-tools.md` |
 | **CityLogs** (`rc.honk.li`), cht33's Riichi City parser, EpicOrange's converter, InjusticeJudge | Riichi City log handling (read for understanding; post-v1) | `docs/research/platforms-and-review-tools.md` |
 | **Mortal** / [mjai.ekyu.moe](https://mjai.ekyu.moe/), **NAGA** ([naga.dmv.nico](https://naga.dmv.nico/)), **Gokujan** (ex-Bigcoach) | AI-review targets we link out to; input formats they accept | `docs/research/platforms-and-review-tools.md` |

@@ -17,7 +17,7 @@ cp "$ROOT/deploy/worker/anyriichi-worker.service" "$TMP/"
 
 if [[ "${1:-}" == "--env" ]]; then
   # Only worker-relevant keys; never the Supabase CLI token.
-  grep -E '^(DATABASE_URL|HTTP_ADDR|LOG_LEVEL|TENHOU_POLL_INTERVAL|USER_AGENT|MAJSOUL_ACCOUNT|MAJSOUL_PASSWORD)=' "$ROOT/.env" > "$TMP/worker.env"
+  grep -E '^(DATABASE_URL|HTTP_ADDR|LOG_LEVEL|TENHOU_POLL_INTERVAL|TENHOU_BACKFILL|TENHOU_FETCH_HOUOU_LOGS|USER_AGENT|MAJSOUL_ACCOUNT|MAJSOUL_PASSWORD)=' "$ROOT/.env" > "$TMP/worker.env"
 fi
 
 G=(--project "$PROJECT" --zone "$ZONE" --tunnel-through-iap)

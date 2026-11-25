@@ -5,6 +5,7 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
@@ -17,8 +18,11 @@ import (
 
 	"github.com/joshk0/anyriichi/worker/internal/config"
 	"github.com/joshk0/anyriichi/worker/internal/database"
+	"github.com/joshk0/anyriichi/worker/internal/ingest"
+	"github.com/joshk0/anyriichi/worker/internal/logref"
 	"github.com/joshk0/anyriichi/worker/internal/queue"
 	"github.com/joshk0/anyriichi/worker/internal/scheduler"
+	"github.com/joshk0/anyriichi/worker/internal/tenhou"
 )
 
 func main() {
@@ -26,6 +30,9 @@ func main() {
 	if err != nil {
 		slog.Error("config", "err", err)
 		os.Exit(1)
+	}
+	if len(os.Args) > 1 {
+		os.Exit(runCommand(cfg, os.Args[1:]))
 	}
 	log := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: cfg.LogLevel}))
 	slog.SetDefault(log)
@@ -68,15 +75,9 @@ func main() {
 	}()
 
 	s := scheduler.New(log)
-	s.Add(scheduler.Job{
-		Name:     "tenhou-raw-poll",
-		Interval: cfg.TenhouPollInterval,
-		Run: func(ctx context.Context) error {
-			// Implemented in M1: docs/design/worker/tenhou-ingest.md
-			log.Debug("tenhou-raw-poll not implemented yet")
-			return nil
-		},
-	})
+	if pool == nil {
+		log.Warn("tenhou ingestion disabled: no database")
+	}
 
 	var wg sync.WaitGroup
 	if pool != nil {
@@ -90,16 +91,62 @@ func main() {
 			},
 		})
 		s.Add(scheduler.Job{Name: "queue-maintenance", Interval: 5 * time.Minute, RunAtStart: true, Run: q.Maintain})
+
+		th := ingest.NewTenhou(pool, tenhou.NewClient(cfg.UserAgent), log, ingest.TenhouConfig{
+			MinPollInterval: cfg.TenhouPollInterval,
+			Backfill:        cfg.TenhouBackfill,
+			FetchHououLogs:  cfg.TenhouFetchHououLogs,
+		})
+		// One full-log fetch at a time: tenhou.net allows a single session (the client also serialises).
+		q.Register(queue.Kind{Name: ingest.JobFetchTenhouLog, Concurrency: 1, Timeout: 2 * time.Minute, Handler: th.FetchLog})
+		// Poll persists its last run in the DB, so RunAtStart can't exceed the 20-minute minimum.
+		s.Add(scheduler.Job{Name: "tenhou-raw-poll", Interval: cfg.TenhouPollInterval, RunAtStart: true, Run: th.Poll})
 		wg.Add(1)
 		go func() { defer wg.Done(); q.Run(ctx) }()
 	}
 
 	log.Info("worker started", "http", cfg.HTTPAddr, "tenhou_poll", cfg.TenhouPollInterval, "db_configured", pool != nil)
 	s.Run(ctx)
+	<-ctx.Done() // the scheduler has no jobs without a database
 	wg.Wait()
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	_ = srv.Shutdown(shutdownCtx)
 	log.Info("worker stopped")
+}
+
+// runCommand handles one-off CLI commands:
+//
+//	worker enqueue <tenhou log id or URL>…   queue full-log fetches (as a submission)
+func runCommand(cfg config.Config, args []string) int {
+	if args[0] != "enqueue" || len(args) < 2 {
+		fmt.Fprintln(os.Stderr, "usage: worker enqueue <tenhou log id or URL>...")
+		return 2
+	}
+	ctx := context.Background()
+	pool, err := database.Open(ctx, cfg.DatabaseURL)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "database:", err)
+		return 1
+	}
+	defer pool.Close()
+	th := ingest.NewTenhou(pool, tenhou.NewClient(cfg.UserAgent), slog.Default(), ingest.TenhouConfig{})
+	code := 0
+	for _, a := range args[1:] {
+		ref := logref.Parse(a)
+		if ref == nil || ref.Platform != "tenhou" {
+			fmt.Fprintf(os.Stderr, "%s: not a Tenhou log\n", a)
+			code = 1
+			continue
+		}
+		queued, err := th.QueueLog(ctx, ref.ID, "submission")
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s: %v\n", ref.ID, err)
+			code = 1
+			continue
+		}
+		fmt.Printf("%s queued=%v\n", ref.ID, queued)
+	}
+	return code
 }

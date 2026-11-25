@@ -6,7 +6,98 @@ package db
 
 import (
 	"time"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
+
+type Game struct {
+	ID          int64       `json:"id"`
+	Platform    string      `json:"platform"`
+	RulesetID   int32       `json:"ruleset_id"`
+	MatchKey    string      `json:"match_key"`
+	StartedAt   time.Time   `json:"started_at"`
+	DurationMin pgtype.Int2 `json:"duration_min"`
+	Sources     []string    `json:"sources"`
+	HasFullLog  bool        `json:"has_full_log"`
+	CreatedAt   time.Time   `json:"created_at"`
+	UpdatedAt   time.Time   `json:"updated_at"`
+}
+
+type GameParticipant struct {
+	GameID       int64          `json:"game_id"`
+	Placement    int16          `json:"placement"`
+	Seat         pgtype.Int2    `json:"seat"`
+	PlayerID     pgtype.Int8    `json:"player_id"`
+	Name         string         `json:"name"`
+	FinalScore   pgtype.Int4    `json:"final_score"`
+	ResultPt     pgtype.Numeric `json:"result_pt"`
+	RankBefore   pgtype.Int4    `json:"rank_before"`
+	RatingBefore pgtype.Numeric `json:"rating_before"`
+	RankPtDelta  pgtype.Int4    `json:"rank_pt_delta"`
+}
+
+type Player struct {
+	ID          int64     `json:"id"`
+	Platform    string    `json:"platform"`
+	PlatformKey string    `json:"platform_key"`
+	DisplayName string    `json:"display_name"`
+	FirstSeenAt time.Time `json:"first_seen_at"`
+	LastSeenAt  time.Time `json:"last_seen_at"`
+}
+
+type PrivateHand struct {
+	GameID       int64  `json:"game_id"`
+	HandIndex    int16  `json:"hand_index"`
+	Round        int16  `json:"round"`
+	Honba        int16  `json:"honba"`
+	RiichiSticks int16  `json:"riichi_sticks"`
+	DealerSeat   int16  `json:"dealer_seat"`
+	Outcome      string `json:"outcome"`
+}
+
+type PrivateHandPlayerStat struct {
+	GameID       int64       `json:"game_id"`
+	HandIndex    int16       `json:"hand_index"`
+	Seat         int16       `json:"seat"`
+	PlayerID     pgtype.Int8 `json:"player_id"`
+	Won          bool        `json:"won"`
+	WonBy        *string     `json:"won_by"`
+	DealtIn      bool        `json:"dealt_in"`
+	Riichi       bool        `json:"riichi"`
+	Called       bool        `json:"called"`
+	TenpaiAtDraw pgtype.Bool `json:"tenpai_at_draw"`
+	Han          pgtype.Int2 `json:"han"`
+	Fu           pgtype.Int2 `json:"fu"`
+	WinValue     pgtype.Int4 `json:"win_value"`
+	DealInValue  pgtype.Int4 `json:"deal_in_value"`
+	Yaku         []int16     `json:"yaku"`
+	ScoreDelta   int32       `json:"score_delta"`
+}
+
+type PrivateTenhouLog struct {
+	LogID        string      `json:"log_id"`
+	GameID       pgtype.Int8 `json:"game_id"`
+	Status       string      `json:"status"`
+	RejectReason *string     `json:"reject_reason"`
+	Source       string      `json:"source"`
+	RawGz        []byte      `json:"raw_gz"`
+	FetchedAt    *time.Time  `json:"fetched_at"`
+	CreatedAt    time.Time   `json:"created_at"`
+	UpdatedAt    time.Time   `json:"updated_at"`
+}
+
+type PrivateTenhouRawFile struct {
+	File        string    `json:"file"`
+	Size        int64     `json:"size"`
+	Lines       int32     `json:"lines"`
+	ProcessedAt time.Time `json:"processed_at"`
+}
+
+type PrivateWorkerState struct {
+	Key       string    `json:"key"`
+	Value     []byte    `json:"value"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
 
 // Worker job queue; claimed with FOR UPDATE SKIP LOCKED.
 type QueueJob struct {
@@ -25,4 +116,17 @@ type QueueJob struct {
 	CreatedAt   time.Time  `json:"created_at"`
 	UpdatedAt   time.Time  `json:"updated_at"`
 	FinishedAt  *time.Time `json:"finished_at"`
+}
+
+type Ruleset struct {
+	ID       int32  `json:"id"`
+	Platform string `json:"platform"`
+	Code     string `json:"code"`
+	Players  int16  `json:"players"`
+	Length   string `json:"length"`
+	Lobby    string `json:"lobby"`
+	Ranked   bool   `json:"ranked"`
+	Aka      bool   `json:"aka"`
+	Kuitan   bool   `json:"kuitan"`
+	Speed    string `json:"speed"`
 }
