@@ -1,0 +1,24 @@
+# Secrets — platform credentials live here, never commit
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Node
+node_modules/
+.next/
+dist/
+coverage/
+
+# Go
+/bin/
+*.test
+*.out
+
+# Local research scratch / fixtures pulled from platforms
+/tmp/
