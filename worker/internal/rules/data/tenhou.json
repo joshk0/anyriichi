@@ -1,0 +1,47 @@
+{
+  "$comment": "Tenhou ranked (段位戦, lobby 0000) rules. Source: https://tenhou.net/man/ (段級位制), fetched 2026-11-25. Only rules in force since the 2017-10-24 change are modelled; earlier logs are not ingested (D-046). Edit together with worker/internal/rules/data/tenhou.json (a test enforces equality).",
+  "supportedFrom": "2017-10-25T00:00:00+09:00",
+  "scoring": {
+    "4": { "startPoints": 25000, "returnPoints": 30000, "uma": [20, 10, -10, -20] },
+    "3": { "startPoints": 35000, "returnPoints": 40000, "uma": [20, 0, -20] }
+  },
+  "levels": ["ippan", "joukyuu", "tokujou", "houou"],
+  "placementPoints": {
+    "$comment": "Rank pt for every placement except last, by players → level → length. Last place comes from the player's rank (ranks[].lastPlace).",
+    "4": {
+      "ippan":   { "east": [20, 10, 0], "south": [30, 15, 0] },
+      "joukyuu": { "east": [40, 10, 0], "south": [60, 15, 0] },
+      "tokujou": { "east": [50, 20, 0], "south": [75, 30, 0] },
+      "houou":   { "east": [60, 30, 0], "south": [90, 45, 0] }
+    },
+    "3": {
+      "ippan":   { "east": [30, 0], "south": [45, 0] },
+      "joukyuu": { "east": [50, 0], "south": [75, 0] },
+      "tokujou": { "east": [70, 0], "south": [105, 0] },
+      "houou":   { "east": [90, 0], "south": [135, 0] }
+    }
+  },
+  "ranks": [
+    { "id": 0,  "ja": "新人", "en": "Newcomer", "startPt": 0,    "promotePt": 20,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 1,  "ja": "９級", "en": "9 kyu",    "startPt": 0,    "promotePt": 20,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 2,  "ja": "８級", "en": "8 kyu",    "startPt": 0,    "promotePt": 20,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 3,  "ja": "７級", "en": "7 kyu",    "startPt": 0,    "promotePt": 20,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 4,  "ja": "６級", "en": "6 kyu",    "startPt": 0,    "promotePt": 40,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 5,  "ja": "５級", "en": "5 kyu",    "startPt": 0,    "promotePt": 60,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 6,  "ja": "４級", "en": "4 kyu",    "startPt": 0,    "promotePt": 80,   "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 7,  "ja": "３級", "en": "3 kyu",    "startPt": 0,    "promotePt": 100,  "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false },
+    { "id": 8,  "ja": "２級", "en": "2 kyu",    "startPt": 0,    "promotePt": 100,  "lastPlace": { "east": -10,  "south": -15 },  "canDemote": false },
+    { "id": 9,  "ja": "１級", "en": "1 kyu",    "startPt": 0,    "promotePt": 100,  "lastPlace": { "east": -20,  "south": -30 },  "canDemote": false },
+    { "id": 10, "ja": "初段", "en": "1 dan",    "startPt": 200,  "promotePt": 400,  "lastPlace": { "east": -30,  "south": -45 },  "canDemote": true },
+    { "id": 11, "ja": "二段", "en": "2 dan",    "startPt": 400,  "promotePt": 800,  "lastPlace": { "east": -40,  "south": -60 },  "canDemote": true },
+    { "id": 12, "ja": "三段", "en": "3 dan",    "startPt": 600,  "promotePt": 1200, "lastPlace": { "east": -50,  "south": -75 },  "canDemote": true },
+    { "id": 13, "ja": "四段", "en": "4 dan",    "startPt": 800,  "promotePt": 1600, "lastPlace": { "east": -60,  "south": -90 },  "canDemote": true },
+    { "id": 14, "ja": "五段", "en": "5 dan",    "startPt": 1000, "promotePt": 2000, "lastPlace": { "east": -70,  "south": -105 }, "canDemote": true },
+    { "id": 15, "ja": "六段", "en": "6 dan",    "startPt": 1200, "promotePt": 2400, "lastPlace": { "east": -80,  "south": -120 }, "canDemote": true },
+    { "id": 16, "ja": "七段", "en": "7 dan",    "startPt": 1400, "promotePt": 2800, "lastPlace": { "east": -90,  "south": -135 }, "canDemote": true },
+    { "id": 17, "ja": "八段", "en": "8 dan",    "startPt": 1600, "promotePt": 3200, "lastPlace": { "east": -100, "south": -150 }, "canDemote": true },
+    { "id": 18, "ja": "九段", "en": "9 dan",    "startPt": 1800, "promotePt": 3600, "lastPlace": { "east": -110, "south": -165 }, "canDemote": true },
+    { "id": 19, "ja": "十段", "en": "10 dan",   "startPt": 2000, "promotePt": 4000, "lastPlace": { "east": -120, "south": -180 }, "canDemote": true },
+    { "id": 20, "ja": "天鳳位", "en": "Tenhoui", "startPt": 0,   "promotePt": null, "lastPlace": { "east": 0,    "south": 0 },    "canDemote": false }
+  ]
+}

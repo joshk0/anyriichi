@@ -1,0 +1,42 @@
+{
+  "$comment": "Shared rules vectors: run by packages/shared (vitest) and worker/internal/rules (go test). Expected values hand-computed from rules/*.json. Placement is 1-based.",
+  "resultPt": [
+    { "platform": "tenhou",  "players": 4, "score": 48300,  "placement": 1, "expect": 58.3 },
+    { "platform": "tenhou",  "players": 4, "score": 25100,  "placement": 2, "expect": 5.1 },
+    { "platform": "tenhou",  "players": 4, "score": -2000,  "placement": 4, "expect": -52.0 },
+    { "platform": "tenhou",  "players": 3, "score": 60000,  "placement": 1, "expect": 55.0 },
+    { "platform": "tenhou",  "players": 3, "score": 22500,  "placement": 3, "expect": -37.5 },
+    { "platform": "majsoul", "players": 4, "score": 31200,  "placement": 2, "expect": 11.2 },
+    { "platform": "majsoul", "players": 4, "score": 12300,  "placement": 4, "expect": -27.7 },
+    { "platform": "majsoul", "players": 3, "score": 20000,  "placement": 3, "expect": -30.0 }
+  ],
+  "tenhouGames": [
+    { "name": "4-dan promotes to 5-dan (houou south 1st)", "rank": 13, "pt": 1590, "players": 4, "level": "houou", "length": "south", "placement": 1, "expect": { "delta": 90, "rank": 14, "pt": 1000, "event": "promotion" } },
+    { "name": "1-dan demotes to 1-kyu (tokujou east 4th)", "rank": 10, "pt": 20, "players": 4, "level": "tokujou", "length": "east", "placement": 4, "expect": { "delta": -30, "rank": 9, "pt": 0, "event": "demotion" } },
+    { "name": "2-kyu floors at 0 (ippan south 4th)", "rank": 8, "pt": 5, "players": 4, "level": "ippan", "length": "south", "placement": 4, "expect": { "delta": -15, "rank": 8, "pt": 0, "event": null } },
+    { "name": "7-dan 3p last place (tokujou south)", "rank": 16, "pt": 2000, "players": 3, "level": "tokujou", "length": "south", "placement": 3, "expect": { "delta": -135, "rank": 16, "pt": 1865, "event": null } },
+    { "name": "newcomer promotes on exactly 20pt (ippan east 2nd)", "rank": 0, "pt": 10, "players": 4, "level": "ippan", "length": "east", "placement": 2, "expect": { "delta": 10, "rank": 1, "pt": 0, "event": "promotion" } },
+    { "name": "10-dan reaches Tenhoui", "rank": 19, "pt": 3990, "players": 4, "level": "houou", "length": "south", "placement": 1, "expect": { "delta": 90, "rank": 20, "pt": 0, "event": "promotion" } },
+    { "name": "3rd place is 0pt in 4p", "rank": 12, "pt": 700, "players": 4, "level": "joukyuu", "length": "east", "placement": 3, "expect": { "delta": 0, "rank": 12, "pt": 700, "event": null } },
+    { "name": "3p houou east 1st", "rank": 15, "pt": 1500, "players": 3, "level": "houou", "length": "east", "placement": 1, "expect": { "delta": 90, "rank": 15, "pt": 1590, "event": null } }
+  ],
+  "majsoulGames": [
+    { "name": "Master 1, throne south 1st", "levelId": 10401, "points": 1400, "mode": 16, "score": 45000, "placement": 1, "expect": { "delta": 155, "levelId": 10401, "points": 1555, "event": null } },
+    { "name": "Expert 3 promotes to Master 1", "levelId": 10303, "points": 1950, "mode": 12, "score": 40000, "placement": 1, "expect": { "delta": 140, "levelId": 10401, "points": 1400, "event": "promotion" } },
+    { "name": "Master 1 demotes to Expert 3 (gold south 4th)", "levelId": 10401, "points": 50, "mode": 9, "score": 12300, "placement": 4, "expect": { "delta": -192, "levelId": 10303, "points": 1000, "event": "demotion" } },
+    { "name": "Adept 1 floors at 0", "levelId": 10201, "points": 10, "mode": 9, "score": 20000, "placement": 4, "expect": { "delta": -40, "levelId": 10201, "points": 0, "event": null } },
+    { "name": "2nd place rounds up (ceil)", "levelId": 10401, "points": 1400, "mode": 9, "score": 23700, "placement": 2, "expect": { "delta": 44, "levelId": 10401, "points": 1444, "event": null } },
+    { "name": "Konten 4th", "levelId": 10701, "points": 100, "mode": 16, "score": 5000, "placement": 4, "expect": { "delta": -50, "levelId": 10701, "points": 50, "event": null } },
+    { "name": "Konten 1 demotes to Saint 3", "levelId": 10701, "points": 20, "mode": 15, "score": 5000, "placement": 4, "expect": { "delta": -30, "levelId": 10503, "points": 4500, "event": "demotion" } },
+    { "name": "Konten 1 promotes to Konten 2", "levelId": 10701, "points": 1980, "mode": 16, "score": 50000, "placement": 1, "expect": { "delta": 50, "levelId": 10702, "points": 1000, "event": "promotion" } },
+    { "name": "Saint 3 promotes to Konten 1", "levelId": 10503, "points": 8950, "mode": 16, "score": 30000, "placement": 2, "expect": { "delta": 70, "levelId": 10701, "points": 1000, "event": "promotion" } },
+    { "name": "3p Saint 1, throne south 3rd", "levelId": 20501, "points": 3000, "mode": 26, "score": 10000, "placement": 3, "expect": { "delta": -280, "levelId": 20501, "points": 2720, "event": null } },
+    { "name": "3p gold east 1st", "levelId": 20301, "points": 600, "mode": 21, "score": 50000, "placement": 1, "expect": { "delta": 85, "levelId": 20301, "points": 685, "event": null } }
+  ],
+  "tenhouSupported": [
+    { "logId": "2017102423gm-00a9-0000-01234567", "expect": false },
+    { "logId": "2017102500gm-00a9-0000-01234567", "expect": true },
+    { "logId": "2026112412gm-00a9-0000-169b632e", "expect": true },
+    { "logId": "2012010100gm-00e1-0000-abcdef01", "expect": false }
+  ]
+}

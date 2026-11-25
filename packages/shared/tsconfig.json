@@ -10,5 +10,9 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "testdata"]
+  "include": [
+    "src",
+    "testdata",
+    "rules"
+  ]
 }

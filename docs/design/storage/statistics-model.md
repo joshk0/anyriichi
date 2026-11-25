@@ -1,23 +1,25 @@
 # Statistics model
 
-Status: **Proposed** (D-016 accepted; tables to verify Q-042) · Related: [game record model](game-record-model.md)
+Status: **Accepted** for §1–2 (D-016, D-045–D-047; implemented in `packages/shared/src/rules.ts` + `worker/internal/rules`, data in `packages/shared/rules/*.json`) · rest **Proposed** · Related: [game record model](game-record-model.md)
 
 ## 1. Normalized result (±pt, D-016)
 For every participant: `result_pt = (final_score − return_points) / 1000 + uma[placement] (+ oka to 1st)`,
 where `oka = (return_points − start_points) × players / 1000`. Tenhou already publishes this value (use as-is).
-Ties: split uma evenly (Q-043). Tables per ruleset live in `/packages/shared/rules/*.json`.
+Ties: both platforms break equal scores by seat order (closer to the initial dealer ranks higher), so we use the platform's placement as-is — no uma splitting (resolves Q-043). Tables live in `packages/shared/rules/*.json`.
+
+**No cross-platform ±pt (D-047):** Tenhou and Mahjong Soul ±pt are on different scales, so ±pt is only ever shown/aggregated per platform. Combined ("All platforms") views show placement stats only.
 
 | Ruleset | start / return | uma | Source |
 |---|---|---|---|
 | Tenhou 4p | 25k / 30k | +20/+10/−10/−20 | Nodocchi, Tenhou |
-| Tenhou 3p | 35k / 40k | +20/0/−20 | |
-| Majsoul 4p | 25k / 25k? | +15/+5/−5/−15 (score screen) | to verify (Q-042) |
-| Majsoul 3p | 35k / 35k? | +15/0/−15 | to verify |
+| Tenhou 3p | 35k / 40k | +20/0/−20 | tenhou.net/man |
+| Majsoul 4p | 25k / 25k | +15/+5/−5/−15 | Amae Koromo `metadata.ts` (Q-042 resolved) |
+| Majsoul 3p | 35k / 35k | +15/0/−15 | Amae Koromo `metadata.ts` |
 | Riichi City 4p (later) | 25k / 30k | +30/+10/−10/−30 | |
 
 ## 2. Rank points per game
-- **Tenhou** (Nodocchi constants): gains 4p 1st/2nd (3p 1st) — 般 +20/+10 (+30), 上 +40/+10 (+50), 特 +50/+20 (+70), 鳳 +60/+30 (+90); 南 ×1.5; last-place loss by dan (初段 −30 … 十段 −120, kyu 0/−10/−20); thresholds per dan; historical variants before 2017-10-24. Dan is **estimated** by replaying the player's ranked games from their first; anchor when a known dan is observed (Tenhou mjlog `<UN dan=...>`).
-- **Majsoul**: `ceil((score − 25000)/1000 + [15,5,−5,−15][place]) + MODE_DELTA[mode][place]`, minus level penalty on 4th (AK `level.ts`); Majsoul records also carry `gradingScore` → prefer the source value.
+- **Tenhou** (source: tenhou.net/man 段級位制; post-2017-10-24 rules only, D-046): 4p non-last gains by lobby, East / South — 一般 +20/+10/0 · +30/+15/0, 上級 +40/+10/0 · +60/+15/0, 特上 +50/+20/0 · +75/+30/0, 鳳凰 +60/+30/0 · +90/+45/0; 3p 1st — 一般 +30·+45, 上級 +50·+75, 特上 +70·+105, 鳳凰 +90·+135 (2nd 0). Last place by rank, same for 3p/4p: 2級 −10/−15, 1級 −20/−30, 初段 −30/−45 … 十段 −120/−180 (−10/−15 per dan); 3級 and below 0. Promotion at 20/20/20/20/40/60/80/100/100/100 (新人…1級) and 400…4000 (初段…十段, +400 each); new rank starts at 0 (kyu) or 200…2000 (dan), surplus discarded. Dan ranks demote below 0 to the previous rank's start; kyu ranks floor at 0. 十段 → 天鳳位 is terminal. 3p and 4p ranks are tracked separately. Dan is **estimated** by replaying ranked games; anchor when a known dan is observed (Tenhou mjlog `<UN dan=...>`).
+- **Mahjong Soul** (source: Amae Koromo `level.ts`/`metadata.ts`, MIT): `ceil((score − base)/1000 + uma[place]) + placementBonus[mode][place]`, minus the level penalty on last place (separate tables for 4p/3p × South/East). Gold/Jade/Throne only (Bronze/Silver not modelled). Level max points 20/80/200 (Novice), 600/800/1000, 1200/1400/2000, 2800/3200/3600, 4000/6000/9000 (Saint); promotion/demotion resets to half the new level's max (Novice 0); Novice and Adept 1 never demote. Konten (major 7, levels 1–20): max 20.0 (2000), start 10.0, fixed Throne deltas (4p S +50/+20/−20/−50, E +30/+10/−10/−30; 3p S ±50, E ±30); Konten 1 below 0 → Saint 3. Records also carry `gradingScore` → prefer the source value when present.
 - **Tenhou R (D-026, later):** start 1500; ΔR = (placement base + (table avg R − R)/40) × max(1 − 0.002·games, 0.2); base 4p +30/+10/−10/−30, 3p +30/0/−30 (verify). Seed/re-anchor from `<UN rate>` in full logs; store `rating_before`/`rating_delta` on `game_participants`. Not shown for Mahjong Soul.
 - `rank_event` set when a game crosses a promotion/demotion threshold → highlighted in UI.
 

@@ -1,7 +1,7 @@
 # Convenience targets. Node tooling runs through corepack (no global pnpm needed).
 PNPM := COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm
 
-.PHONY: install dev build test lint typecheck worker-build worker-test worker-run worker-deploy sqlc db-push check
+.PHONY: install dev build test lint typecheck worker-build worker-test worker-run worker-deploy sqlc db-push rules-sync check
 
 install:
 	$(PNPM) install
@@ -44,3 +44,7 @@ sqlc:
 # Apply supabase/migrations to the linked hosted project.
 db-push:
 	npx -y supabase@2.62.10 db push
+
+# Copy shared rules JSON into the Go module (go:embed cannot reach outside worker/).
+rules-sync:
+	cp packages/shared/rules/*.json worker/internal/rules/data/

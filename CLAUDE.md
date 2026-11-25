@@ -25,7 +25,9 @@ anyRiichi is a web app that aggregates riichi mahjong game records across platfo
 `COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm …`, not a bare `pnpm`. Supabase CLI: `npx supabase@2.62.10 …`.
 Next.js is v16: read `apps/web/node_modules/next/dist/docs/` before writing web code.
 Log detection lives in two implementations (TS `packages/shared`, Go `worker/internal/logref`) sharing
-`packages/shared/testdata/log-refs.json` — change both together.
+`packages/shared/testdata/log-refs.json` — change both together. Same for rules (±pt, rank points):
+`packages/shared/src/rules.ts` ↔ `worker/internal/rules`, data `packages/shared/rules/*.json` (copied by
+`make rules-sync`), vectors `packages/shared/testdata/rules.json`.
 
 ## Memory
 `memory/MEMORY.md` is the index (one line per memory file). Each memory file holds one fact with
