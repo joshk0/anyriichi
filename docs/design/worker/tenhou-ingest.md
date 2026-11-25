@@ -4,7 +4,7 @@ Status: **Proposed** · Research: [/docs/research/tenhou-and-nodocchi.md](../../
 
 ## Public results (all games, D-001)
 1. Every 20 min: GET `https://tenhou.net/sc/raw/list.cgi` (JSONP) → `[{file,size}]`.
-2. For each file in scope (`scb*`, `scc*`; `sca`/`scf` pending Q-034) whose `size` > stored size: download `https://tenhou.net/sc/raw/dat/{file}` (gz only), follow redirects, one connection at a time.
+2. For each file in scope (`scb*`, `scc*` only — D-033) whose `size` > stored size: download `https://tenhou.net/sc/raw/dat/{file}` (gz only), follow redirects, one connection at a time.
 3. Parse lines → upsert `games` (+ `rulesets` from rule string) and `game_participants` (placement order, ±pt). `scc` lines include the log id.
 4. Store `(file, size, etag/last-modified, processed_at)` in `tenhou_raw_files`.
 5. Backfill: `list.cgi?old` (~1 year of daily files) once at launch, slowly. Older history: Q-031.

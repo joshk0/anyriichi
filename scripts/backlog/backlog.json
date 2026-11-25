@@ -10,12 +10,12 @@
  "issues": [
   {
    "milestone": "M0 Foundations",
-   "title": "Owner: answer infra account questions (domain, GCP billing, Vercel, Supabase plan)",
+   "title": "Owner/Claude: finalize DB choice from cost analysis (Supabase vs Firestore vs others)",
    "labels": [
     "blocked:owner",
     "area:infra"
    ],
-   "body": "Resolve Q-070, Q-071, Q-072 in docs/design/open-questions.md."
+   "body": "Q-071. Domain anyriichi.com and personal accounts decided (D-035). See docs/research/db-cost-analysis.md."
   },
   {
    "milestone": "M0 Foundations",
@@ -84,14 +84,6 @@
     "area:shared"
    ],
    "body": "docs/design/storage/statistics-model.md §1–2; docs/design/web/log-submission-and-privacy.md#detection-patterns."
-  },
-  {
-   "milestone": "M0 Foundations",
-   "title": "Owner: provide platform credentials & sample log IDs in .env (fixtures)",
-   "labels": [
-    "blocked:owner"
-   ],
-   "body": "Several log IDs per platform incl. sanma, East, older formats, non-ranked (for rejection tests)."
   },
   {
    "milestone": "M1 Tenhou MVP",
@@ -318,14 +310,6 @@
   },
   {
    "milestone": "M1 Tenhou MVP",
-   "title": "Confirm tenhou.net/6 JSON as canonical interchange format (Q-040 / D-021)",
-   "labels": [
-    "blocked:owner"
-   ],
-   "body": ""
-  },
-  {
-   "milestone": "M1 Tenhou MVP",
    "title": "Confirm platform logo usage terms; obtain higher-res assets",
    "labels": [
     "type:research"
@@ -339,7 +323,7 @@
     "blocked:owner",
     "platform:majsoul"
    ],
-   "body": "Q-060, Q-062"
+   "body": "Q-060, Q-062 — deferred until M2 starts (D-034)."
   },
   {
    "milestone": "M2 Mahjong Soul",
@@ -524,6 +508,41 @@
     "platform:tenhou"
    ],
    "body": "D-026. Nodocchi-style R computation seeded/anchored from <UN rate> in full logs; show R and ΔR in Tenhou game rows and player header; omit for Mahjong Soul. See docs/design/storage/statistics-model.md §2."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Owner: register anyriichi.com and point it at Vercel",
+   "labels": [
+    "blocked:owner",
+    "area:infra"
+   ],
+   "body": "D-035"
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Owner: add sample log IDs to docs/research/sample-logs.md",
+   "labels": [
+    "blocked:owner"
+   ],
+   "body": "D-038. Tenhou 4p/3p, East/South, lower lobbies; Majsoul ranked + friendly (rejection tests)."
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Before launch: email C-EGG about Tenhou data usage",
+   "labels": [
+    "blocked:owner",
+    "platform:tenhou"
+   ],
+   "body": "D-032. Claude drafts JA/EN email."
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Before launch: brand identity (logo, palette) and human review of Japanese text",
+   "labels": [
+    "needs-design",
+    "i18n"
+   ],
+   "body": "D-036, D-037"
   }
  ]
 }
