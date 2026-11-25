@@ -14,6 +14,7 @@ the artifact link won't follow, so re-create the canvas from these files.
 | `project/PlayerMobile.dc.html` | Player page — phone |
 | `project/Accounts.dc.html` | Settings — linked accounts, Tenhou verification, log privacy, sign-in |
 | `project/Upload.dc.html` | Submit game logs (Tenhou + Mahjong Soul), missing-log list, extension |
+| `project/SignIn.dc.html` | Sign in / create account, onboarding (link Tenhou name, log privacy) — proposed 2026-11-25 |
 | `assets/` | Uploaded image assets (platform icons) referenced by the artboards |
 
 ### Asset map

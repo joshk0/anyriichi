@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in and onboarding</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F6F3}
+a{color:#0F6E66}a:hover{color:#0A4F49}
+button,input,select{font:inherit}
+</style>
+</helmet>
+<div style="font-family: Inter, 'Noto Sans JP', system-ui, sans-serif; color: #15171C; background: #F6F6F3; min-height: 960px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #E3E3DE">
+<div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 10px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #15171C">
+<span style="width: 30px; height: 38px; border-radius: 5px; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; font-family: 'Noto Sans JP'; font-weight: 700; font-size: 18px; color: #C2410C">中</span>
+<span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 22px">anyRiichi</span>
+</a>
+<span style="flex: 1"></span>
+<span style="font-size: 13px; color: #5B616E">English · 日本語</span>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start">
+
+<!-- 1. Sign in / create account -->
+<section aria-label="Step 1: sign in" style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: .04em">1 · Sign in or create an account</span>
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<div>
+<h1 style="margin: 0 0 4px; font-family: 'Space Grotesk'; font-size: 24px">{{ title }}</h1>
+<p style="margin: 0; font-size: 14px; color: #5B616E">Link your Tenhou and Mahjong Soul accounts, submit logs and control who sees them.</p>
+</div>
+<div role="tablist" style="display: flex; gap: 4px; padding: 4px; background: #F1F1EC; border-radius: 10px">
+<button type="button" role="tab" onClick="{{ setSignin }}" style="{{ signinTab }}">Sign in</button>
+<button type="button" role="tab" onClick="{{ setSignup }}" style="{{ signupTab }}">Create account</button>
+</div>
+<button type="button" style="height: 44px; border: 1px solid #D5D5CF; border-radius: 8px; background: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px">
+<span style="width: 18px; height: 18px; border-radius: 50%; background: conic-gradient(#EA4335 0 25%, #FBBC05 0 50%, #34A853 0 75%, #4285F4 0)"></span>Continue with Google</button>
+<button type="button" style="height: 44px; border: 0; border-radius: 8px; background: #5865F2; color: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px">
+<span style="width: 18px; height: 14px; border-radius: 5px; background: #FFFFFF"></span>Continue with Discord</button>
+<div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #5B616E"><span style="flex: 1; height: 1px; background: #E3E3DE"></span>or with email<span style="flex: 1; height: 1px; background: #E3E3DE"></span></div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Email
+<input type="email" value="player@example.com" style="height: 44px; padding: 0 12px; border: 1px solid #D5D5CF; border-radius: 8px; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Password
+<input type="password" value="••••••••••" style="height: 44px; padding: 0 12px; border: 1px solid #D5D5CF; border-radius: 8px; font-weight: 400"></label>
+<sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; color: #5B616E">At least 8 characters. We'll send a confirmation link to your email.</span></sc-if>
+<button type="button" style="height: 44px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-size: 14px; font-weight: 600">{{ submitLabel }}</button>
+<sc-if value="{{ isSignin }}" hint-placeholder-val="{{ true }}"><a href="#" style="font-size: 13px; align-self: center">Forgot password?</a></sc-if>
+</div>
+<p style="margin: 0; font-size: 12px; color: #5B616E">By continuing you agree to the Terms and Privacy Policy. Your stats are public; your submitted logs are private unless you choose otherwise.</p>
+</section>
+
+<!-- 2. Link a platform account -->
+<section aria-label="Step 2: link accounts" style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: .04em">2 · Which players are you?</span>
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<div>
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk'; font-size: 20px">Link your accounts</h2>
+<p style="margin: 0; font-size: 14px; color: #5B616E">One account per platform. You can do this later in Settings.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid #0F6E66; background: #F3FAF8; border-radius: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<img src="/_blob/457615ed98121fa99d4278456336ae89" alt="Tenhou" style="width: 32px; height: 32px; border-radius: 8px">
+<b style="font-size: 15px">Tenhou name</b>
+</div>
+<input type="text" value="Sample" aria-label="Tenhou name" style="height: 44px; padding: 0 12px; border: 1px solid #D5D5CF; border-radius: 8px; background: #FFFFFF">
+<div role="listbox" style="display: flex; flex-direction: column; border: 1px solid #E3E3DE; border-radius: 8px; background: #FFFFFF; overflow: hidden">
+<div role="option" aria-selected="true" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #E3F2EF">
+<span style="flex: 1"><b style="font-size: 14px">SamplePlayer</b><br><span style="font-size: 12px; color: #5B616E">七段 · 4P · 382 games · last played Nov 24</span></span>
+<span style="font-size: 12px; font-weight: 600; color: #0A4F49">This is me</span>
+</div>
+<div role="option" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-top: 1px solid #E3E3DE">
+<span style="flex: 1"><b style="font-size: 14px">Sample_2</b><br><span style="font-size: 12px; color: #5B616E">二段 · 4P · 41 games · last played Oct 3</span></span>
+</div>
+<div role="option" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-top: 1px solid #E3E3DE">
+<span style="flex: 1"><b style="font-size: 14px">SampleCat</b><br><span style="font-size: 12px; color: #5B616E">1級 · 3P · 12 games · last played Nov 2</span></span>
+</div>
+</div>
+<span style="font-size: 12px; color: #5B616E">Not listed? Type your exact name — we'll pick up your games as they appear in Tenhou's public results.</span>
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: #FFF7ED; font-size: 12px; color: #7C2D12">
+<span style="font-weight: 700">!</span><span>Linked as <b>unverified</b>. Your stats appear right away; verify by submitting 25 ranked logs (or other ways in Settings) to unlock privacy controls for this player.</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 14px; border: 1px dashed #D5D5CF; border-radius: 10px; color: #5B616E">
+<img src="/_blob/9b1188e6dd8efb5c77be8b86131b3356" alt="Mahjong Soul" style="width: 32px; height: 32px; border-radius: 8px; opacity: .6">
+<span style="flex: 1; font-size: 14px"><b style="color: #15171C">Mahjong Soul</b><br><span style="font-size: 12px">Coming soon — link through the browser extension.</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center">
+<a href="#" style="font-size: 13px">Skip for now</a>
+<button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-size: 14px; font-weight: 600">Continue</button>
+</div>
+</div>
+</section>
+
+<!-- 3. Log privacy -->
+<section aria-label="Step 3: log privacy" style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: .04em">3 · Log privacy</span>
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<div>
+<h2 style="margin: 0 0 4px; font-family: 'Space Grotesk'; font-size: 20px">Who can open your game logs?</h2>
+<p style="margin: 0; font-size: 14px; color: #5B616E">Your stats are always visible. This controls replay links and per-game detail on your page. Change it anytime.</p>
+</div>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="position: absolute; left: -9999px">Log visibility</legend>
+<label style="display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid #0F6E66; background: #F3FAF8; border-radius: 10px">
+<input type="radio" name="vis" checked style="margin-top: 3px; accent-color: #0F6E66">
+<span><b style="font-size: 14px">Private</b> <span style="font-size: 12px; color: #0A4F49; font-weight: 600">recommended</span><br><span style="font-size: 13px; color: #5B616E">Only you.</span></span>
+</label>
+<label style="display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid #E3E3DE; border-radius: 10px">
+<input type="radio" name="vis" style="margin-top: 3px; accent-color: #0F6E66">
+<span><b style="font-size: 14px">Players at the table</b><br><span style="font-size: 13px; color: #5B616E">Signed-in players with a linked account in that game.</span></span>
+</label>
+<label style="display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid #E3E3DE; border-radius: 10px">
+<input type="radio" name="vis" style="margin-top: 3px; accent-color: #0F6E66">
+<span><b style="font-size: 14px">Public</b><br><span style="font-size: 13px; color: #5B616E">Anyone viewing your page.</span></span>
+</label>
+</fieldset>
+<button type="button" style="height: 44px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-size: 14px; font-weight: 600">Finish — go to my page</button>
+<p style="margin: 0; font-size: 13px; color: #5B616E">Next: <a href="Upload.dc.html">submit your game logs</a> for detailed stats and verification.</p>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":960}}'>
+class Component extends DCLogic {
+  setSignin = () => this.setState({ mode: 'signin' });
+  setSignup = () => this.setState({ mode: 'signup' });
+  renderVals() {
+    const mode = (this.state && this.state.mode) || 'signin';
+    const tabStyle = (m) => 'flex: 1; height: 36px; border: 0; border-radius: 8px; font-size: 13px; font-weight: 600; ' +
+      (m === mode ? 'background: #FFFFFF; color: #15171C; box-shadow: 0 1px 2px rgba(0,0,0,.08)' : 'background: transparent; color: #5B616E');
+    const signup = mode === 'signup';
+    return {
+      title: signup ? 'Create your account' : 'Sign in',
+      submitLabel: signup ? 'Create account' : 'Sign in',
+      isSignup: signup, isSignin: !signup,
+      signinTab: tabStyle('signin'), signupTab: tabStyle('signup'),
+      setSignin: this.setSignin, setSignup: this.setSignup
+    };
+  }
+}
+</script>
+</body>
+</html>

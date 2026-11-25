@@ -7,6 +7,7 @@ Status: **Proposed — direction reviewed by owner 2026-11-25** · Mockups: [des
 2. **Player page — phone**: same content stacked; filter chips scroll horizontally; game cards with result, rank-pt delta, promotion badge.
 3. **Settings**: one linked account per platform; Tenhou verification paths; log privacy (Private default); sign-in (Google/Email/Discord).
 4. **Submit game logs**: unified paste box with platform detection & ranked-only validation; games-missing-a-log list; extension card (MS + Tenhou); Tenhou premium import; detailed-stats coverage.
+5. **Sign in & onboarding** (proposed 2026-11-25, awaiting review): sign in / create account (Google, Discord, email + password; no 2FA), then link a Tenhou name (prefix search over known players, "This is me" → unverified claim, skip allowed; Mahjong Soul shown as coming soon), then log privacy (Private preselected) → user's page.
 
 ## Conventions
 - Placement colours (colour-blind-safe, differ in lightness): 1st `#1E3A8A`, 2nd `#5B8DEF`, 3rd `#C4C7CF`, 4th `#E8590C`.
@@ -17,7 +18,7 @@ Status: **Proposed — direction reviewed by owner 2026-11-25** · Mockups: [des
 - Mobile-first: touch targets ≥ 44 px, no horizontal page scroll; wide tables scroll inside a box.
 
 ## Not yet mocked
-Home/search, leaderboards, combined user page `/u/{handle}`, sign-up/onboarding flow, Japanese locale, game detail page, AI-review export menu, admin/operator console.
+Home/search, leaderboards, combined user page `/u/{handle}`, Japanese locale, game detail page, AI-review export menu, admin/operator console.
 
 ## Prototype pages (2026-11-26, not the final design)
 To verify Tenhou ingestion end to end, the web app has minimal pages built from the mockup tokens:
