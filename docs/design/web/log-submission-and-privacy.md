@@ -14,9 +14,11 @@ Status: **Accepted** (D-007, D-008, D-012, D-013, D-015, D-019) with open sub-qu
 | Tenhou premium import | Tenhou | `tenhou.net/mjlog.html` by Tenhou ID (D-015, Q-033) |
 | Worker (public feeds) | Tenhou 鳳凰 (`scc`) | ingested automatically, still subject to visibility rules |
 
-### Detection patterns (initial; owner will supply more examples)
-- Tenhou: `(\d{10}gm-[0-9a-f]{4}-\d{4,5}-x?[0-9a-f]{8,16})`, optionally inside `tenhou.net/0/?log=…&tw=N`.
-- Majsoul: `paipu=` + `\d{6}-[0-9a-f-]{36}` (+ optional `_a\d+` seat/account suffix) on `game.mahjongsoul.com`, `mahjongsoul.game.yo-star.com`, `game.maj-soul.com`.
+### Detection patterns (validated against `docs/research/sample-logs.md`)
+- **Tenhou:** `(\d{10}gm-[0-9a-f]{4}-\d{4,5}-x?[0-9a-f]{8,16})`, typically inside `tenhou.net/0/?log=…` **or `tenhou.net/3/?log=…`** (both viewer paths occur), with optional `&tw=N` (seat). The 4-hex rule code tells us players/length/lobby/speed before fetching, e.g. `0099` = 3p 南 上級, `0019` = 3p 南 一般, `0001` = 4p 東 一般, `00c1` = 4p 東 上級 **速** (0x40 speed bit — speed lobbies are ranked too).
+- **Mahjong Soul:** `paipu=YYMMDD-<uuid v4>` optionally followed by `_a<digits>` (the account/seat suffix is variable length, e.g. `_a9249`, `_a924963243`). Hosts: `mahjongsoul.game.yo-star.com`, `game.mahjongsoul.com`, `game.maj-soul.com`.
+- **Reject Majsoul anonymised share links:** the "anonymous share" option scrambles the id into non-hex letters (e.g. `joklnq-v0zwv089-a480-6aa5-fgbo-lpnqsjsqro12_a924`). Detect = first segment not 6 digits / uuid not hex → "Anonymous share links aren't supported — use the normal share link."
+- Room/ranked status for Majsoul is only known after fetching the record (friendly and tournament samples must be rejected post-fetch, D-012).
 
 ### Acceptance rules (D-012)
 - **Ranked games only.** Tenhou: lobby `0000` and ranked rule types. Majsoul: rank-match mode ids (Bronze→Throne, 3p/4p, East/South). Others get an inline "Not ranked — not accepted" status.
