@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Design tokens from the UI mockups (docs/design/web/user-interface.md#conventions).
+   Brand colours are placeholders (D-036). */
+@theme {
+  --color-ground: #f6f6f3;
+  --color-card: #ffffff;
+  --color-ink: #15171c;
+  --color-muted: #5b616e;
+  --color-line: #e3e3de;
+  --color-line-strong: #d5d5cf;
+  --color-accent: #0f6e66;
+  --color-accent-strong: #0a4f49;
+  --color-accent-soft: #e3f2ef;
+  --color-tile: #c2410c;
+
+  /* Placement colours: colour-blind-safe, differ in lightness. */
+  --color-place-1: #1e3a8a;
+  --color-place-2: #5b8def;
+  --color-place-3: #c4c7cf;
+  --color-place-4: #e8590c;
+
+  --font-sans: var(--font-inter), var(--font-noto-jp), system-ui, sans-serif;
+  --font-display: var(--font-grotesk), var(--font-noto-jp), system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Dark theme deferred; keep light palette for now. */
+}

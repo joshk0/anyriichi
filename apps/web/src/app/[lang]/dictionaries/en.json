@@ -1,0 +1,13 @@
+{
+  "meta": { "title": "anyRiichi", "description": "Riichi mahjong stats across Tenhou and Mahjong Soul." },
+  "nav": { "leaderboards": "Leaderboards", "submit": "Submit logs", "signIn": "Sign in", "language": "Language" },
+  "home": {
+    "headline": "Your riichi mahjong stats, across every platform.",
+    "sub": "Placement rates, rank progress and detailed per-hand stats for Tenhou and Mahjong Soul — in one place.",
+    "searchLabel": "Search players",
+    "searchPlaceholder": "Search a player on any platform…",
+    "comingSoon": "Under construction — player search arrives with the Tenhou MVP.",
+    "placementDemo": "Placement distribution (sample)"
+  },
+  "placement": { "1": "1st", "2": "2nd", "3": "3rd", "4": "4th" }
+}

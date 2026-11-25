@@ -1,12 +1,12 @@
 # Web application architecture
 
-Status: **Proposed** · Related: [platform](../infrastructure/platform.md), [storage overview](../storage/overview.md)
+Status: **Accepted** (scaffolded in M0, D-041) · Related: [platform](../infrastructure/platform.md), [storage overview](../storage/overview.md)
 
 ## Stack
-- Next.js (App Router) + TypeScript, deployed on Vercel (D-002, D-004).
-- UI: Tailwind CSS + shadcn/ui (Radix primitives); charts: Recharts or visx (Q: pick during M1 — candlestick support needed for rank charts).
+- Next.js 16 (App Router, `cacheComponents`, Proxy = former middleware) + TypeScript, deployed on Vercel (D-002, D-004). **Read `apps/web/node_modules/next/dist/docs/` before writing Next code** — APIs differ from older versions (see `apps/web/AGENTS.md`).
+- UI: Tailwind CSS v4 with design tokens in `globals.css` `@theme`; shadcn/ui (Radix primitives) to be added when the first interactive components land; charts: Recharts or visx (Q: pick during M1 — candlestick support needed for rank charts).
 - Data: Supabase Postgres via `@supabase/ssr` (RLS for user data) + server-only service queries for heavy stats.
-- i18n: `next-intl`, locales `en`, `ja`; locale in URL prefix (`/ja/player/...`).
+- i18n: Next.js built-in pattern — `app/[lang]` root segment, `proxy.ts` redirect by `Accept-Language`, JSON dictionaries loaded via `next/root-params` (no `next-intl`, D-041); locales `en`, `ja`; locale in URL prefix (`/ja/player/...`).
 - Validation: zod. Testing: Vitest + Playwright.
 
 ## Routes (proposed)
@@ -31,7 +31,7 @@ Filter state is encoded in the URL query (`?platform=tenhou&players=4&lobby=toku
 /apps/extension    browser extension (TS, WXT or Plasmo)
 /worker            Go module (standalone deployable)
 /packages/shared   TS: log-id detection, rule tables, stat formulas, types generated from DB schema
-/db                SQL migrations (Supabase CLI), seeds
+/supabase          Supabase CLI config + SQL migrations, seeds
 /docs              design + research
 ```
 Stat formulas & rule tables are needed in both Go (worker) and TS (web) → keep tables as JSON data in `/packages/shared/rules/` consumed by both.

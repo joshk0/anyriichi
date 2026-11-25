@@ -22,3 +22,7 @@ coverage/
 
 # Local research scratch / fixtures pulled from platforms
 /tmp/
+
+# Supabase local
+supabase/.branches
+supabase/.temp

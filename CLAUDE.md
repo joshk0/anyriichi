@@ -20,6 +20,13 @@ anyRiichi is a web app that aggregates riichi mahjong game records across platfo
 - Respect each platform's usage rules (e.g. Tenhou raw listing polled no more often than every 20 minutes).
 - **Pre-prototype git workflow:** work in the local tree, let the diff build up, then commit and push directly to `main` (no small PRs). Once we reach a workable prototype, switch to targeted, readable PRs. Never push to a branch whose PR is already merged.
 
+## Commands
+`make install | dev | test | check | worker-run` (see README). pnpm runs via corepack — use `make` or
+`COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm …`, not a bare `pnpm`. Supabase CLI: `npx supabase@2.62.10 …`.
+Next.js is v16: read `apps/web/node_modules/next/dist/docs/` before writing web code.
+Log detection lives in two implementations (TS `packages/shared`, Go `worker/internal/logref`) sharing
+`packages/shared/testdata/log-refs.json` — change both together.
+
 ## Memory
 `memory/MEMORY.md` is the index (one line per memory file). Each memory file holds one fact with
 frontmatter (`name`, `description`, `type: user|feedback|project|reference`). Read the index at the

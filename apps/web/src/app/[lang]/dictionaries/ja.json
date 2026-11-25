@@ -1,0 +1,14 @@
+{
+  "_review": "Machine-drafted Japanese; pending human review (D-037).",
+  "meta": { "title": "anyRiichi", "description": "天鳳と雀魂の成績をまとめて分析。" },
+  "nav": { "leaderboards": "ランキング", "submit": "牌譜を登録", "signIn": "ログイン", "language": "言語" },
+  "home": {
+    "headline": "すべてのプラットフォームの成績を、ひとつに。",
+    "sub": "天鳳と雀魂の順位率・段位推移・局ごとの詳細スタッツをまとめて確認できます。",
+    "searchLabel": "プレイヤー検索",
+    "searchPlaceholder": "プレイヤー名で検索…",
+    "comingSoon": "準備中 — プレイヤー検索は天鳳MVPで公開予定です。",
+    "placementDemo": "順位分布（サンプル）"
+  },
+  "placement": { "1": "1位", "2": "2位", "3": "3位", "4": "4位" }
+}
