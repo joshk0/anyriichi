@@ -97,8 +97,8 @@ button{font:inherit;cursor:pointer}
 </div>
 </section>
 
-<section aria-label="Summary" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px">
-<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="6">
+<section aria-label="Summary" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
 <div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
 <span style="font-size: 12px; color: #5B616E; font-weight: 500">{{ k.label }}</span>
 <span style="font-family: 'Space Grotesk'; font-size: 28px; font-weight: 600; letter-spacing: -0.5px">{{ k.value }}</span>
@@ -230,8 +230,6 @@ class Component extends DCLogic {
     const kpis = [
       { label: 'Games', value: '1,284', sub: 'MS 902 · Tenhou 382' },
       { label: 'Avg placement', value: '2.41', sub: 'avg result +3.8 pt / game' },
-      { label: '1st place', value: '27.6%', sub: 'top-2 52.9%' },
-      { label: '4th place', value: '20.1%', sub: 'busted 6.8%' },
       { label: 'Win rate', value: '22.8%', sub: 'avg win 6,912' },
       { label: 'Deal-in rate', value: '11.9%', sub: 'avg deal-in 5,480' }
     ];
