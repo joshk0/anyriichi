@@ -1,0 +1,548 @@
+{
+ "milestones": [
+  "M0 Foundations",
+  "M1 Tenhou MVP",
+  "M2 Mahjong Soul",
+  "M3 Extension & import",
+  "M4 Analysis & community",
+  "Later"
+ ],
+ "issues": [
+  {
+   "milestone": "M0 Foundations",
+   "title": "Owner/Claude: finalize DB choice from cost analysis (Supabase vs Firestore vs others)",
+   "labels": [
+    "blocked:owner",
+    "area:infra"
+   ],
+   "body": "Q-071. Domain anyriichi.com and personal accounts decided (D-035). See docs/research/db-cost-analysis.md."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Set up monorepo layout (apps/web, apps/extension, worker, packages/shared, db)",
+   "labels": [
+    "area:infra"
+   ],
+   "body": "Per docs/design/web/architecture.md#monorepo-layout. pnpm workspaces + Go module. Root Makefile/scripts."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Create Supabase project(s) (dev + prod) and wire Supabase CLI migrations",
+   "labels": [
+    "area:db",
+    "area:infra"
+   ],
+   "body": "See docs/design/infrastructure/platform.md. Region near GCE VM. Store keys in .env / Vercel env."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Scaffold Next.js app with Tailwind, shadcn/ui, next-intl (en/ja) and deploy to Vercel",
+   "labels": [
+    "area:web",
+    "area:infra"
+   ],
+   "body": "docs/design/web/architecture.md. Preview deploys per PR."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Design tokens & base components from mockups (placement colours, fonts, chips, cards)",
+   "labels": [
+    "area:web",
+    "needs-design"
+   ],
+   "body": "docs/design/web/user-interface.md#conventions. Brand placeholder until Q-080."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Scaffold Go worker: config, slog logging, pgx/sqlc, Postgres-backed job queue, scheduler",
+   "labels": [
+    "area:worker"
+   ],
+   "body": "docs/design/worker/architecture.md"
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Provision GCE e2-micro (Always Free) VM + systemd unit + deploy workflow",
+   "labels": [
+    "area:infra",
+    "area:worker"
+   ],
+   "body": "docs/design/infrastructure/platform.md. Secrets via Secret Manager or root-only env file."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "CI: GitHub Actions for lint/test/build (web, worker, shared)",
+   "labels": [
+    "area:infra"
+   ],
+   "body": "Typecheck, ESLint, Vitest, go vet/test, sqlc diff."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Shared rules package: rulesets, uma/oka, rank tables, log-id regexes (TS + Go, shared test vectors)",
+   "labels": [
+    "area:shared"
+   ],
+   "body": "docs/design/storage/statistics-model.md §1–2; docs/design/web/log-submission-and-privacy.md#detection-patterns."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "DB schema v1: players, rulesets, games, game_participants, tenhou_raw_files, ingest_runs",
+   "labels": [
+    "area:db"
+   ],
+   "body": "docs/design/storage/game-record-model.md, docs/design/storage/user-model.md"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "DB schema v1: profiles, player_claims, log_submissions + RLS policies",
+   "labels": [
+    "area:db"
+   ],
+   "body": "docs/design/storage/user-model.md"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou: list.cgi poller (≤ every 20 min, size-diff, gz only, single session)",
+   "labels": [
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "docs/design/worker/tenhou-ingest.md. ToS compliance is a hard requirement."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou: parse scb/scc lines → games/participants (rule string → ruleset)",
+   "labels": [
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "docs/design/worker/tenhou-ingest.md, research/tenhou-and-nodocchi.md#line-formats"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou: one-time backfill from list.cgi?old (~1 year), rate-limited",
+   "labels": [
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "Q-031 tracks older history."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Research: Tenhou history before the 1-year window (scraw zips 404)",
+   "labels": [
+    "type:research",
+    "platform:tenhou"
+   ],
+   "body": "Q-031. Possibly ask Nodocchi's author."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou: mjlog XML fetcher + parser → hands & hand_player_stats",
+   "labels": [
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "docs/design/worker/log-conversion.md. Fetch /0/log/?id, 1 req/2s."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou: match full logs to existing scb summary games",
+   "labels": [
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "docs/design/storage/game-record-model.md#matching-summary-rows-to-full-logs-tenhou"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou: dan/pt estimation + promotions/demotions (rank_pt_delta, rank_event)",
+   "labels": [
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "docs/design/storage/statistics-model.md §2 (Nodocchi constants incl. historical variants)."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Stats: placement-tier aggregates + per-hand stat definitions (SQL) with coverage",
+   "labels": [
+    "area:db",
+    "area:shared"
+   ],
+   "body": "docs/design/storage/statistics-model.md §3–4"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Stats cache table + invalidation on ingest",
+   "labels": [
+    "area:db",
+    "area:worker"
+   ],
+   "body": "docs/design/storage/statistics-model.md §5"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Auth: Supabase sign-in with Google, Email+password, Discord (no 2FA in v1)",
+   "labels": [
+    "area:web"
+   ],
+   "body": "D-010, docs/design/web/authentication.md"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Player search (Tenhou names, prefix match, JA/EN)",
+   "labels": [
+    "area:web"
+   ],
+   "body": "pg_trgm index on players.display_name."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Player page (desktop + phone) per mockups",
+   "labels": [
+    "area:web"
+   ],
+   "body": "docs/design/web/user-interface.md, mockups Main / PlayerMobile. URL-encoded filters."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Recent games table: normalized ±pt, raw score, rank-pt delta, promotion/demotion highlight",
+   "labels": [
+    "area:web"
+   ],
+   "body": "D-016"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Rank progress chart (Tenhou dan pt + R)",
+   "labels": [
+    "area:web",
+    "needs-design"
+   ],
+   "body": "Consider Nodocchi-style candlestick; choose chart lib."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Link Tenhou account (one per platform) + claim states",
+   "labels": [
+    "area:web"
+   ],
+   "body": "D-009, D-011"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Tenhou verification by 25 ranked logs + manual review request",
+   "labels": [
+    "area:web",
+    "area:worker",
+    "platform:tenhou"
+   ],
+   "body": "D-011, D-022. ID-secret path depends on Q-025."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Unified log submission page: paste, platform detection, ranked-only validation, status table",
+   "labels": [
+    "area:web"
+   ],
+   "body": "D-012, D-013, docs/design/web/log-submission-and-privacy.md"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Games-missing-a-log list",
+   "labels": [
+    "area:web"
+   ],
+   "body": "D-019"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Log visibility setting (Private default / table / public) and enforcement",
+   "labels": [
+    "area:web",
+    "area:db"
+   ],
+   "body": "D-007, D-008, D-029: account-wide setting; logs auto-associated with all claimed participants; visibility evaluated per participant page. See docs/design/web/log-submission-and-privacy.md#visibility"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Settings pages per mockup (linked accounts, log privacy, sign-in)",
+   "labels": [
+    "area:web"
+   ],
+   "body": "Mockup Accounts.dc.html"
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Japanese localization of all v1 strings",
+   "labels": [
+    "area:web",
+    "i18n"
+   ],
+   "body": "Q-082 reviewer."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "OG images / link previews for player pages",
+   "labels": [
+    "area:web"
+   ],
+   "body": "Persona P4."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Operator page: ingest health (runs, errors, lag)",
+   "labels": [
+    "area:web",
+    "area:worker"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Mock home/search, sign-up/onboarding, combined user page on the design canvas",
+   "labels": [
+    "needs-design"
+   ],
+   "body": "Not yet mocked (user-interface.md)."
+  },
+  {
+   "milestone": "M1 Tenhou MVP",
+   "title": "Confirm platform logo usage terms; obtain higher-res assets",
+   "labels": [
+    "type:research"
+   ],
+   "body": "D-018, Q-081"
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Owner: request Amae Koromo API key from SAPikachu",
+   "labels": [
+    "blocked:owner",
+    "platform:majsoul"
+   ],
+   "body": "Q-060, Q-062 — deferred until M2 starts (D-034)."
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Majsoul: Amae Koromo client (player_stats, extended_stats, player_records)",
+   "labels": [
+    "area:worker",
+    "platform:majsoul"
+   ],
+   "body": "docs/design/worker/majsoul-ingest.md"
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Majsoul: Go protobuf client from liqi.json + login (choose server, token refresh)",
+   "labels": [
+    "area:worker",
+    "platform:majsoul"
+   ],
+   "body": "Q-061. Dedicated throwaway account."
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Majsoul: fetchGameRecord for registered users' games + parser (records[] and actions[])",
+   "labels": [
+    "area:worker",
+    "platform:majsoul"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Majsoul: verify uma/oka/rank-point tables per room (incl. Konten)",
+   "labels": [
+    "type:research",
+    "platform:majsoul"
+   ],
+   "body": "Q-042"
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Majsoul: account linking + verification (signature nonce / extension)",
+   "labels": [
+    "area:web",
+    "platform:majsoul"
+   ],
+   "body": "Q-023"
+  },
+  {
+   "milestone": "M2 Mahjong Soul",
+   "title": "Cross-platform 'All' view and per-platform placement bars",
+   "labels": [
+    "area:web"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M3 Extension & import",
+   "title": "Browser extension scaffold (MV3, WXT, Chrome + Firefox) + anyRiichi auth",
+   "labels": [
+    "area:extension"
+   ],
+   "body": "docs/design/extension/browser-extension.md, Q-050"
+  },
+  {
+   "milestone": "M3 Extension & import",
+   "title": "Extension: Tenhou localStorage reader + auto-submit",
+   "labels": [
+    "area:extension",
+    "platform:tenhou"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M3 Extension & import",
+   "title": "Extension: Majsoul paipu history bulk import + sync",
+   "labels": [
+    "area:extension",
+    "platform:majsoul"
+   ],
+   "body": "Q-052"
+  },
+  {
+   "milestone": "M3 Extension & import",
+   "title": "Owner: create Chrome Web Store / Firefox AMO publisher accounts",
+   "labels": [
+    "blocked:owner",
+    "area:extension"
+   ],
+   "body": "Q-051"
+  },
+  {
+   "milestone": "M3 Extension & import",
+   "title": "Tenhou premium import via mjlog.html (needs owner's paid ID)",
+   "labels": [
+    "area:worker",
+    "platform:tenhou",
+    "blocked:owner"
+   ],
+   "body": "D-015, Q-033"
+  },
+  {
+   "milestone": "M3 Extension & import",
+   "title": "Tenhou verification via ID secret",
+   "labels": [
+    "area:web",
+    "platform:tenhou",
+    "type:research"
+   ],
+   "body": "Q-025"
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Export tenhou.net/6 JSON + AI-review deep links (Mortal, NAGA, Gokujan)",
+   "labels": [
+    "area:web",
+    "area:worker"
+   ],
+   "body": "docs/design/worker/log-conversion.md"
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Percentile histograms per stat (nightly distributions)",
+   "labels": [
+    "area:worker",
+    "area:web"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Leaderboards (delta & career)",
+   "labels": [
+    "area:web"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Frequent opponents / head-to-head",
+   "labels": [
+    "area:web"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "CSV export of game list",
+   "labels": [
+    "area:web"
+   ],
+   "body": ""
+  },
+  {
+   "milestone": "Later",
+   "title": "Riichi City support",
+   "labels": [
+    "platform:riichicity"
+   ],
+   "body": "D-017"
+  },
+  {
+   "milestone": "Later",
+   "title": "Leagues / clubs",
+   "labels": [
+    "needs-design"
+   ],
+   "body": "Q-011"
+  },
+  {
+   "milestone": "Later",
+   "title": "2FA, LINE/Apple login, auth-method linking",
+   "labels": [
+    "area:web"
+   ],
+   "body": "Q-020, Q-021"
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Tenhou: running R rating + per-game R change (Tenhou rows only)",
+   "labels": [
+    "area:worker",
+    "area:web",
+    "platform:tenhou"
+   ],
+   "body": "D-026. Nodocchi-style R computation seeded/anchored from <UN rate> in full logs; show R and ΔR in Tenhou game rows and player header; omit for Mahjong Soul. See docs/design/storage/statistics-model.md §2."
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Owner: register anyriichi.com and point it at Vercel",
+   "labels": [
+    "blocked:owner",
+    "area:infra"
+   ],
+   "body": "D-035"
+  },
+  {
+   "milestone": "M0 Foundations",
+   "title": "Owner: add sample log IDs to docs/research/sample-logs.md",
+   "labels": [
+    "blocked:owner"
+   ],
+   "body": "D-038. Tenhou 4p/3p, East/South, lower lobbies; Majsoul ranked + friendly (rejection tests)."
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Before launch: email C-EGG about Tenhou data usage",
+   "labels": [
+    "blocked:owner",
+    "platform:tenhou"
+   ],
+   "body": "D-032. Claude drafts JA/EN email."
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Before launch: brand identity (logo, palette) and human review of Japanese text",
+   "labels": [
+    "needs-design",
+    "i18n"
+   ],
+   "body": "D-036, D-037"
+  }
+ ]
+}

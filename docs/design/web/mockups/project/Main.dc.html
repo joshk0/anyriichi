@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Player page — desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F6F3}
+a{color:#0F6E66}a:hover{color:#0A4F49}
+button{font:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="font-family: Inter, 'Noto Sans JP', system-ui, sans-serif; color: #15171C; background: #F6F6F3; min-height: 1640px">
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E3E3DE">
+<div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+<a href="#" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #15171C">
+<span style="width: 30px; height: 38px; border-radius: 5px; background: #FFFFFF; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; font-family: 'Noto Sans JP'; font-weight: 700; font-size: 18px; color: #C2410C">中</span>
+<span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 22px; letter-spacing: -0.5px">anyRiichi</span>
+</a>
+<form style="flex: 1 1 320px; display: flex" role="search">
+<label for="q" style="position: absolute; left: -9999px">Search players</label>
+<input id="q" type="search" placeholder="Search a player on any platform…" style="flex: 1; height: 40px; border: 1px solid #D5D5CF; border-radius: 8px; padding: 0 14px; font: inherit; font-size: 14px; background: #FAFAF8">
+</form>
+<nav style="display: flex; align-items: center; gap: 18px; font-size: 14px; font-weight: 500">
+<a href="#" style="color: #15171C; text-decoration: none">Leaderboards</a>
+<a href="Upload.dc.html" style="color: #15171C; text-decoration: none">Submit logs</a>
+<button type="button" aria-label="Language" style="height: 34px; padding: 0 10px; border: 1px solid #D5D5CF; border-radius: 6px; background: #FFFFFF">EN · 日本語</button>
+<a href="Accounts.dc.html" aria-label="Account settings" style="width: 34px; height: 34px; border-radius: 50%; background: #0F6E66; color: #FFFFFF; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 600">S</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; display: flex; flex-direction: column; gap: 20px">
+
+<section style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 12px">
+<h1 style="margin: 0; font-family: 'Space Grotesk'; font-size: 36px; letter-spacing: -0.8px">SamplePlayer</h1>
+<span style="font-size: 12px; font-weight: 600; color: #0F6E66; background: #E3F2EF; padding: 4px 8px; border-radius: 999px">Verified owner</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px">
+<span style="display: flex; align-items: center; gap: 8px; border: 1px solid #E3E3DE; background: #FFFFFF; border-radius: 999px; padding: 4px 12px 4px 4px"><img src="/_blob/9b1188e6dd8efb5c77be8b86131b3356" alt="Mahjong Soul" style="width: 24px; height: 24px; border-radius: 50%"><b>Mahjong Soul</b> <span style="color: #5B616E">JP · Master 2 · 1,240 / 2,000 pt</span></span>
+<span style="display: flex; align-items: center; gap: 8px; border: 1px solid #E3E3DE; background: #FFFFFF; border-radius: 999px; padding: 4px 12px 4px 4px"><img src="/_blob/457615ed98121fa99d4278456336ae89" alt="Tenhou" style="width: 24px; height: 24px; border-radius: 50%"><b>Tenhou</b> <span style="color: #5B616E">七段 1,520 / 2,800 pt · R2051</span></span>
+</div>
+</div>
+<div style="display: flex; gap: 8px">
+<button type="button" style="height: 38px; padding: 0 14px; border: 1px solid #D5D5CF; border-radius: 8px; background: #FFFFFF; font-size: 14px; font-weight: 500">☆ Follow</button>
+<button type="button" style="height: 38px; padding: 0 14px; border: 1px solid #D5D5CF; border-radius: 8px; background: #FFFFFF; font-size: 14px; font-weight: 500">Copy link</button>
+</div>
+</section>
+
+<section aria-label="Filters" style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 16px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: 0.6px">Platform</span>
+<div style="display: flex; border: 1px solid #D5D5CF; border-radius: 8px; overflow: hidden">
+<sc-for list="{{ platforms }}" as="p" hint-placeholder-count="4">
+<button type="button" onClick="{{ p.pick }}" style="{{ p.style }}">{{ p.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: 0.6px">Players</span>
+<div style="display: flex; gap: 6px">
+<button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #0F6E66; background: #E3F2EF; color: #0A4F49; font-size: 13px; font-weight: 600">4-player</button>
+<button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px">3-player</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: 0.6px">Lobby</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{ lobbies }}" as="l" hint-placeholder-count="4">
+<button type="button" style="{{ l.style }}">{{ l.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: 0.6px">Length · Type</span>
+<div style="display: flex; gap: 6px">
+<button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #0F6E66; background: #E3F2EF; color: #0A4F49; font-size: 13px; font-weight: 600">South</button>
+<button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px">East</button>
+<button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #0F6E66; background: #E3F2EF; color: #0A4F49; font-size: 13px; font-weight: 600">Ranked</button>
+<button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px">Tournament</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-left: auto">
+<label for="range" style="font-size: 12px; font-weight: 600; color: #5B616E; text-transform: uppercase; letter-spacing: 0.6px">Period</label>
+<select id="range" style="height: 34px; border: 1px solid #D5D5CF; border-radius: 8px; padding: 0 10px; font: inherit; font-size: 13px; background: #FFFFFF">
+<option>Last 13 weeks</option><option>Last 500 games</option><option>All time</option><option>Custom…</option>
+</select>
+</div>
+</section>
+
+<section aria-label="Summary" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; color: #5B616E; font-weight: 500">{{ k.label }}</span>
+<span style="font-family: 'Space Grotesk'; font-size: 28px; font-weight: 600; letter-spacing: -0.5px">{{ k.value }}</span>
+<span style="font-size: 12px; color: #5B616E">{{ k.sub }}</span>
+</div>
+</sc-for>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 1 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 18px">Placement distribution</h2>
+<span style="font-size: 12px; color: #5B616E">by platform · current filters</span>
+</div>
+<sc-for list="{{ placements }}" as="row" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; font-size: 13px"><b>{{ row.name }}</b><span style="color: #5B616E">{{ row.games }} games · avg {{ row.avg }}</span></div>
+<div style="display: flex; height: 26px; border-radius: 6px; overflow: hidden; font-size: 12px; font-weight: 600">
+<div style="{{ row.s1 }}">{{ row.p1 }}</div>
+<div style="{{ row.s2 }}">{{ row.p2 }}</div>
+<div style="{{ row.s3 }}">{{ row.p3 }}</div>
+<div style="{{ row.s4 }}">{{ row.p4 }}</div>
+</div>
+</div>
+</sc-for>
+<div style="display: flex; gap: 16px; font-size: 12px; color: #5B616E">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #1E3A8A"></span>1st</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #5B8DEF"></span>2nd</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #C4C7CF"></span>3rd</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #E8590C"></span>4th</span>
+</div>
+</div>
+
+<div style="flex: 1 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 18px">Rank progress</h2>
+<div role="group" aria-label="Rank chart platform" style="display: flex; gap: 6px"><button type="button" aria-pressed="true" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 10px 0 4px; border-radius: 999px; border: 1px solid #0F6E66; background: #E3F2EF; color: #0A4F49; font-size: 12px; font-weight: 600"><img src="/_blob/9b1188e6dd8efb5c77be8b86131b3356" alt="" style="width: 20px; height: 20px; border-radius: 50%">Mahjong Soul</button><button type="button" aria-pressed="false" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 10px 0 4px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; color: #15171C; font-size: 12px"><img src="/_blob/457615ed98121fa99d4278456336ae89" alt="" style="width: 20px; height: 20px; border-radius: 50%">Tenhou</button></div>
+</div>
+<svg viewBox="0 0 520 200" role="img" aria-label="Rank points rising from Master 1 to Master 2 over 13 weeks" style="width: 100%; height: 200px">
+<line x1="40" y1="20" x2="510" y2="20" stroke="#EEEEEA"></line>
+<line x1="40" y1="80" x2="510" y2="80" stroke="#EEEEEA"></line>
+<line x1="40" y1="140" x2="510" y2="140" stroke="#EEEEEA"></line>
+<line x1="40" y1="180" x2="510" y2="180" stroke="#D5D5CF"></line>
+<text x="0" y="24" font-size="11" fill="#5B616E">M2</text>
+<text x="0" y="144" font-size="11" fill="#5B616E">M1</text>
+<rect x="40" y="76" width="470" height="8" fill="#E3F2EF"></rect>
+<text x="44" y="72" font-size="10" fill="#0F6E66">promoted</text>
+<polyline fill="none" stroke="#0F6E66" stroke-width="2.5" points="40,160 70,150 100,156 130,138 160,142 190,120 220,126 250,104 280,92 310,96 340,82 370,64 400,72 430,52 460,58 490,44 510,40"></polyline>
+<circle cx="510" cy="40" r="4" fill="#0F6E66"></circle>
+<text x="40" y="196" font-size="11" fill="#5B616E">Aug 26</text>
+<text x="460" y="196" font-size="11" fill="#5B616E">Nov 25</text>
+</svg>
+<p style="margin: 0; font-size: 12px; color: #5B616E">Stable rank estimate: Master 3 · expected +6.2 pt / game · Tenhou R-rate shown when Tenhou is selected.</p>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px">
+<div role="tablist" style="display: flex; gap: 4px; padding: 8px 12px 0; border-bottom: 1px solid #E3E3DE; overflow-x: auto">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<button type="button" role="tab" onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="padding: 16px 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 28px">
+<sc-for list="{{ stats }}" as="s" hint-placeholder-count="9">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 0; border-bottom: 1px solid #F0F0EC">
+<div style="display: flex; justify-content: space-between; font-size: 14px"><span>{{ s.label }}</span><b style="font-family: 'Space Grotesk'">{{ s.value }}</b></div>
+<div style="height: 6px; background: #EEEEEA; border-radius: 3px; position: relative"><div style="{{ s.bar }}"></div></div>
+<span style="font-size: 11px; color: #5B616E">{{ s.pct }}</span>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; padding: 0 20px 16px; font-size: 12px; color: #5B616E">Detailed stats come from full game logs: available for Mahjong Soul, and for Tenhou games you submit. Percentile = vs. players at the same rank.</p>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 18px">Recent games</h2>
+<a href="#" style="font-size: 13px">View all 312 →</a>
+</div>
+<p style="margin: 0; font-size: 12px; color: #5B616E">Results are normalized to Tenhou-style ±pt (score − return + uma/oka of that room) so platforms compare. Tenhou log links are shown only to people the log's submitter allows.</p>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 900px">
+<thead>
+<tr style="text-align: left; color: #5B616E; font-size: 12px">
+<th style="padding: 8px; font-weight: 600">Date</th><th style="padding: 8px; font-weight: 600">Platform · Lobby</th><th style="padding: 8px; font-weight: 600">Place</th><th style="padding: 8px; font-weight: 600">Result (±pt)</th><th style="padding: 8px; font-weight: 600">Rank pt</th><th style="padding: 8px; font-weight: 600">Table</th><th style="padding: 8px; font-weight: 600; text-align: right">Log</th>
+</tr>
+</thead>
+<tbody>
+<sc-for list="{{ games }}" as="g" hint-placeholder-count="6">
+<tr style="{{ g.rowStyle }}">
+<td style="padding: 10px 8px; white-space: nowrap; color: #5B616E">{{ g.date }}</td>
+<td style="padding: 10px 8px; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 6px"><img src="{{ g.logo }}" alt="{{ g.platform }}" style="width: 18px; height: 18px; border-radius: 50%">{{ g.lobby }}</span></td>
+<td style="padding: 10px 8px"><span style="{{ g.badge }}">{{ g.place }}</span></td>
+<td style="padding: 10px 8px; white-space: nowrap"><b style="font-family: 'Space Grotesk'; font-size: 14px">{{ g.result }}</b> <span style="color: #5B616E; font-size: 12px">{{ g.raw }}</span></td>
+<td style="padding: 10px 8px; white-space: nowrap"><span style="font-family: 'Space Grotesk'; font-weight: 600">{{ g.delta }}</span> <sc-if value="{{ g.hasEvent }}" hint-placeholder-val="{{ false }}"><span style="{{ g.eventStyle }}">{{ g.event }}</span></sc-if></td>
+<td style="padding: 10px 8px; color: #5B616E">{{ g.table }}</td>
+<td style="padding: 10px 8px; text-align: right; white-space: nowrap">
+<sc-if value="{{ g.canView }}" hint-placeholder-val="{{ true }}"><a href="#">Replay</a> · <a href="#">AI review ▾</a></sc-if>
+<sc-if value="{{ g.noLog }}" hint-placeholder-val="{{ false }}"><a href="Upload.dc.html">Submit log</a></sc-if>
+<sc-if value="{{ g.hidden }}" hint-placeholder-val="{{ false }}"><span style="color: #5B616E">Private</span></sc-if>
+</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1640}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { platform: 'All', tab: 'Overview' }; }
+  renderVals() {
+    const on = 'height: 34px; padding: 0 14px; border: 0; background: #15171C; color: #FFFFFF; font-size: 13px; font-weight: 600';
+    const off = 'height: 34px; padding: 0 14px; border: 0; background: #FFFFFF; color: #15171C; font-size: 13px';
+    const platforms = ['All', 'Mahjong Soul', 'Tenhou'].map((label) => ({
+      label, style: this.state.platform === label ? on : off, pick: () => this.setState({ platform: label })
+    }));
+    const chipOn = 'height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #0F6E66; background: #E3F2EF; color: #0A4F49; font-size: 13px; font-weight: 600';
+    const chipOff = 'height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px';
+    const lobbyMap = {
+      'All': [['Jade', 1], ['Throne', 1], ['特上', 1], ['鳳凰', 0], ['Gold', 0]],
+      'Mahjong Soul': [['Gold', 0], ['Jade', 1], ['Throne', 1]],
+      'Tenhou': [['一般', 0], ['上級', 0], ['特上', 1], ['鳳凰', 0]]
+    };
+    const lobbies = lobbyMap[this.state.platform].map(([label, sel]) => ({ label, style: sel ? chipOn : chipOff }));
+    const kpis = [
+      { label: 'Games', value: '1,284', sub: 'MS 902 · Tenhou 382' },
+      { label: 'Avg placement', value: '2.41', sub: 'avg result +3.8 pt / game' },
+      { label: 'Win rate', value: '22.8%', sub: 'avg win 6,912' },
+      { label: 'Deal-in rate', value: '11.9%', sub: 'avg deal-in 5,480' }
+    ];
+    const seg = (c, w, dark) => `width: ${w}%; background: ${c}; color: ${dark ? '#FFFFFF' : '#15171C'}; display: flex; align-items: center; justify-content: center`;
+    const mk = (name, games, avg, a, b, c, d) => ({ name, games, avg,
+      p1: a + '%', p2: b + '%', p3: c + '%', p4: d + '%',
+      s1: seg('#1E3A8A', a, 1), s2: seg('#5B8DEF', b, 0), s3: seg('#C4C7CF', c, 0), s4: seg('#E8590C', d, 0) });
+    const placements = [
+      mk('All platforms', '1,284', '2.41', 27.6, 25.3, 27.0, 20.1),
+      mk('Mahjong Soul', '902', '2.37', 28.9, 25.8, 26.4, 18.9),
+      mk('Tenhou', '382', '2.51', 24.6, 24.1, 28.3, 23.0)
+    ];
+    const tabOn = 'height: 40px; padding: 0 14px; border: 0; border-bottom: 2px solid #0F6E66; background: transparent; color: #15171C; font-size: 14px; font-weight: 600';
+    const tabOff = 'height: 40px; padding: 0 14px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #5B616E; font-size: 14px';
+    const tabs = ['Overview', 'Riichi', 'Calls & defense', 'Hand value', 'Luck', 'Opponents'].map((label) => ({
+      label, style: this.state.tab === label ? tabOn : tabOff, pick: () => this.setState({ tab: label })
+    }));
+    const st = (label, value, pct) => ({ label, value, pct: `${pct}th percentile`,
+      bar: `position: absolute; left: 0; top: 0; bottom: 0; width: ${pct}%; background: #0F6E66; border-radius: 3px` });
+    const statSets = {
+      'Overview': [st('Win rate', '22.8%', 71), st('Deal-in rate', '11.9%', 64), st('Tsumo rate', '41.2%', 55), st('Riichi rate', '19.4%', 48), st('Call rate', '31.7%', 62), st('Dama rate', '9.8%', 70), st('Draw rate', '14.1%', 40), st('Tenpai at draw', '48.3%', 58), st('Avg win turn', '11.6', 66)],
+      'Riichi': [st('Riichi win rate', '46.0%', 61), st('Riichi deal-in', '14.2%', 52), st('First riichi', '68.1%', 57), st('Chasing riichi', '18.4%', 44), st('Chased rate', '21.0%', 50), st('Avg riichi turn', '8.9', 63), st('Ippatsu rate', '16.5%', 49), st('Uradora rate', '33.1%', 51), st('Multi-sided wait', '63.4%', 69)]
+    };
+    const stats = statSets[this.state.tab] || statSets['Overview'];
+    const badge = (n) => {
+      const m = { 1: ['#1E3A8A', '#FFFFFF'], 2: ['#5B8DEF', '#15171C'], 3: ['#C4C7CF', '#15171C'], 4: ['#E8590C', '#15171C'] }[n];
+      return `display: inline-flex; width: 28px; height: 28px; border-radius: 6px; align-items: center; justify-content: center; font-weight: 700; background: ${m[0]}; color: ${m[1]}`;
+    };
+    const MS = '/_blob/9b1188e6dd8efb5c77be8b86131b3356', TH = '/_blob/457615ed98121fa99d4278456336ae89';
+    const ev = (kind) => kind === 'up'
+      ? 'font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #1E3A8A; color: #FFFFFF'
+      : 'font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #E8590C; color: #15171C';
+    const g = (date, logo, platform, lobby, place, result, raw, delta, event, kind, log, table) => ({
+      date, logo, platform, lobby, place, result, raw, delta, table, badge: badge(place),
+      hasEvent: !!event, event, eventStyle: ev(kind),
+      canView: log === 'view', noLog: log === 'none', hidden: log === 'private',
+      rowStyle: event ? `border-top: 1px solid #F0F0EC; background: ${kind === 'up' ? '#F2F5FD' : '#FFF6F0'}` : 'border-top: 1px solid #F0F0EC'
+    });
+    const games = [
+      g('Nov 25 21:14', MS, 'Mahjong Soul', 'Jade South 4P', 1, '+63.3', '48,300', '+123', 'Promoted → Master 2', 'up', 'view', 'PlayerB +11.2 · PlayerC −20.1 · PlayerD −54.4'),
+      g('Nov 25 20:31', TH, 'Tenhou', '特上南 4P', 3, '−12.0', '28,000', '±0', '', '', 'none', 'PlayerE +49.0 · PlayerF +6.0 · PlayerG −43.0'),
+      g('Nov 25 19:50', MS, 'Mahjong Soul', 'Throne East 4P', 2, '+9.8', '29,800', '+29', '', '', 'view', 'PlayerH +41.0 · PlayerI −16.3 · PlayerJ −34.5'),
+      g('Nov 24 23:02', TH, 'Tenhou', '特上南 4P', 4, '−46.0', '−6,000', '−105', 'Demoted → 七段', 'down', 'view', 'PlayerK +52.0 · PlayerL +11.0 · PlayerM −17.0'),
+      g('Nov 24 22:19', TH, 'Tenhou', '特上南 4P', 1, '+52.1', '42,100', '+75', '', '', 'private', 'PlayerN +7.4 · PlayerO −19.0 · PlayerP −40.5'),
+      g('Nov 24 21:40', MS, 'Mahjong Soul', 'Jade South 4P', 2, '+13.6', '33,600', '+40', '', '', 'view', 'PlayerQ +43.9 · PlayerR −15.7 · PlayerS −41.8')
+    ];
+    return { platforms, lobbies, kpis, placements, tabs, stats, games };
+  }
+}
+</script>
+</body>
+</html>

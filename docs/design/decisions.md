@@ -1,0 +1,45 @@
+# Decision log
+
+Append-only. Each entry: ID, date, decision, rationale, source. Superseding decisions reference the old ID.
+
+| ID | Date | Decision | Source |
+|---|---|---|---|
+| D-001 | 2026-11-25 | **Data scope is hybrid.** Ingest *all* public Tenhou games. For Mahjong Soul, use Amae Koromo (AK) for registered users, plus our own fetcher only for registered users' game records (no live-room crawling). | Owner, kickoff Q&A |
+| D-002 | 2026-11-25 | **Frontend: Next.js (App Router, React, TypeScript)**, Tailwind + shadcn/ui. | Owner |
+| D-003 | 2026-11-25 | **Auth + DB: Supabase** (Supabase Auth + Postgres). | Owner |
+| D-004 | 2026-11-25 | **Web hosting: Vercel.** Go worker on a **GCE e2-micro (Always Free)** VM. Hobby tier is non-commercial — revisit (Pro $20/mo) if we monetize. | Owner |
+| D-005 | 2026-11-25 | **MVP = Tenhou-first.** Mahjong Soul follows in M2; Riichi City after v1. | Owner |
+| D-006 | 2026-11-25 | **Majsoul strategy: AK + own fetcher.** Owner asks SAPikachu for an AK API key; our worker uses a dedicated throwaway Majsoul account to call `fetchGameRecord` for registered users' games only. | Owner |
+| D-007 | 2026-11-25 | **Tenhou ToS posture: log links are not publicly revealed** (like AK masking). Users' log visibility defaults to **Private**. Showing a log link to a registered user whose *claimed* player is in that game is acceptable. | Owner |
+| D-008 | 2026-11-25 | **Log visibility setting** per user: Private (default) / Players at the table / Public. Applies to logs the user submits. | Owner, canvas comment |
+| D-009 | 2026-11-25 | **One linked account per platform** per user (no alts) — alts may violate platform ToS. Idea for later: private secondary accounts. | Owner, canvas comment |
+| D-010 | 2026-11-25 | **V1 sign-in: Google, Email+password, Discord.** No 2FA in v1. No switching/merging auth methods in v1. *(Supersedes the 2FA requirement in the original spec for v1.)* | Owner, canvas comment |
+| D-011 | 2026-11-25 | **Tenhou account verification**: verified when the same user submits **25 ranked logs** containing that player (no extra conditions, see D-022); or by **ID secret** (instant, optional); or **manual review** to transfer a claimed account. Auto-verified links are revocable by stronger proof. | Owner, canvas comment |
+| D-012 | 2026-11-25 | **Only ranked-room logs** may be submitted by users (Tenhou 段位戦 lobbies; Majsoul rank match rooms). Tournament stats from public feeds may still be stored. | Owner, canvas comment |
+| D-013 | 2026-11-25 | **Single log-submission page** for all platforms with automatic platform detection from the log ID/URL. | Owner, canvas comment |
+| D-014 | 2026-11-25 | **Browser extension v1 supports Tenhou and Mahjong Soul** (MS: use the session token to bulk-list the user's paipu; Tenhou: read localStorage `log0..39`, auto-submit finished games). | Owner, canvas comment |
+| D-015 | 2026-11-25 | **Tenhou premium import**: support importing a user's history via `tenhou.net/mjlog.html` by Tenhou ID (owner will provide a paid ID to study the response). | Owner, canvas comment |
+| D-016 | 2026-11-25 | **Game results normalized to Tenhou-style ±pt** across platforms using each room's uma/oka; also show **rank-point delta per game**, and highlight **promotions/demotions**. | Owner, canvas comment |
+| D-017 | 2026-11-25 | **Riichi City deferred** out of v1 designs (keep layouts extensible for a third platform). | Owner, canvas comment |
+| D-018 | 2026-11-25 | **Use official platform logos** in the UI from the start (currently app icons; confirm brand-usage terms before launch). | Owner, canvas comment |
+| D-019 | 2026-11-25 | **"Games missing a log" list** so users can find and submit logs for Tenhou games without one. | Owner, canvas comment |
+| D-020 | 2026-11-25 | **Mockups live on a Claude design canvas and are mirrored in `docs/design/web/mockups/`** for account portability. | Owner |
+| D-021 | 2026-11-25 | **Canonical full-log interchange format = tenhou.net/6 JSON** (all AI reviewers accept it); raw platform logs are kept privately for re-processing. | Owner confirmed (Q-040) |
+| D-022 | 2026-11-25 | **Tenhou 25-log verification has no extra conditions** (no "after claim opened" / "≥5 days" rules) — UI shows "12 / 25 logs submitted". *(Amends D-011.)* ID-secret verification caption: "Your login information will be deleted after verifying your account." | Owner, canvas comment |
+| D-023 | 2026-11-25 | Submission page copy does not advertise automatic platform detection (detection still happens). | Owner, canvas comment |
+| D-024 | 2026-11-25 | **Tenhou premium import**: the Tenhou ID is used once and **never saved**; if the user's Tenhou claim is not yet verified, a successful import **instantly verifies** it. | Owner, canvas comment |
+| D-025 | 2026-11-25 | **Missing-logs list workflow**: each row has a **Submit log** button → modal collecting the log URL for that specific game (validated against time/room/players) → row disappears and the next unshown missing game takes its place. May become its own page later. *(Refines D-019.)* | Owner, canvas comment |
+| D-026 | 2026-11-25 | **Tenhou R rating (later)**: compute the player's running R like Nodocchi and show per-game R change on Tenhou rows only (not Mahjong Soul). Anchor/seed from known R values (`<UN rate=…>` in any full log) because our history may not start at the player's first game. | Owner, canvas comment |
+| D-027 | 2026-11-25 | **Rank-progress chart uses a platform picker** (one chip per linked platform, default = most-played, hidden when only one); each platform in its native rank scale. No overlay. | Owner (Q-083) |
+| D-028 | 2026-11-25 | **Premium import with a different player's Tenhou ID is blocked** when the user already has a verified Tenhou account (one account per platform); user must unlink first. | Owner (Q-026) |
+| D-029 | 2026-11-25 | **Log association & per-page visibility.** A submitted log is automatically associated with every participant who has (or later binds) a claimed account — as if each had submitted it. Visibility is evaluated **per participant page**: a log is reachable from a participant's page only as that participant's own setting allows. One participant choosing Public never exposes the log via a more private participant's page; only that private participant's page/experience differs. No per-log overrides in v1. *(Resolves Q-012, Q-013; refines D-008.)* | Owner |
+| D-030 | 2026-11-25 | **No profile hiding / opt-out**: stats derived from public data stay public (Nodocchi/AK model). | Owner (Q-010) |
+| D-031 | 2026-11-25 | Leagues/clubs are **out of v1** (Later milestone). | Owner (Q-011) |
+| D-032 | 2026-11-25 | Contact C-EGG for Tenhou data permission **later, before public launch** (backlog item). | Owner (Q-030) |
+| D-033 | 2026-11-25 | Tenhou ingestion: **ranked feeds only** (scb/scc). No 個室 (sca) or tournament (scf) results for now. | Owner (Q-034) |
+| D-034 | 2026-11-25 | Amae Koromo contact (key / collaboration): **not yet** — revisit at M2. | Owner (Q-060, Q-062) |
+| D-035 | 2026-11-25 | Domain: **anyriichi.com**. Cloud accounts are the owner's **personal** GCP / Vercel / Supabase accounts. | Owner (Q-070, Q-072) |
+| D-036 | 2026-11-25 | Branding: **keep the placeholder** (中 tile mark, teal, Inter/Space Grotesk) until before public launch. | Owner (Q-080) |
+| D-037 | 2026-11-25 | Japanese UI text: **Claude-drafted only for now**, flagged for later human review. | Owner (Q-082) |
+| D-038 | 2026-11-25 | Owner will create Chrome Web Store + Firefox AMO accounts and a paid Tenhou account (for mjlog.html). Sample log IDs → `docs/research/sample-logs.md` (owner adding). | Owner (Q-051, Q-033) |
+| D-039 | 2026-11-25 | **Database: Supabase Pro from M1** (~$25/mo Y1, ~$31 Y3), region us-east-1 near Vercel; Micro compute, move to Small at ~10 GB. Free tier for early M0 dev only. Raw logs in Supabase Storage (100 GB incl.). Firestore/Neon/D1/Cloud SQL rejected — see docs/research/db-cost-analysis.md. *(Resolves Q-071, Q-041.)* | Owner (Q-071) |

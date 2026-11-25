@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Player page — phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0F6E66}a:hover{color:#0A4F49}
+button{font:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 1640px; box-sizing: border-box; overflow: hidden; font-family: Inter, 'Noto Sans JP', system-ui, sans-serif; color: #15171C; background: #F6F6F3; display: flex; flex-direction: column">
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E3E3DE; padding: 12px 16px; display: flex; align-items: center; gap: 10px">
+<span style="width: 24px; height: 30px; border-radius: 4px; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; font-family: 'Noto Sans JP'; font-weight: 700; font-size: 14px; color: #C2410C">中</span>
+<span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 19px; flex: 1">anyRiichi</span>
+<button type="button" aria-label="Search" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+</button>
+<button type="button" aria-label="Menu" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="2" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+</button>
+</header>
+
+<div style="padding: 18px 16px 8px; display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: 'Space Grotesk'; font-size: 28px; letter-spacing: -0.5px">SamplePlayer</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+<span style="display: flex; align-items: center; gap: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; border-radius: 999px; padding: 3px 10px 3px 3px"><img src="/_blob/9b1188e6dd8efb5c77be8b86131b3356" alt="Mahjong Soul" style="width: 20px; height: 20px; border-radius: 50%">Master 2</span>
+<span style="display: flex; align-items: center; gap: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; border-radius: 999px; padding: 3px 10px 3px 3px"><img src="/_blob/457615ed98121fa99d4278456336ae89" alt="Tenhou" style="width: 20px; height: 20px; border-radius: 50%">七段 R2051</span>
+</div>
+</div>
+
+<div style="padding: 8px 16px; display: flex; gap: 8px; overflow-x: auto">
+<button type="button" style="flex: none; height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: #15171C; color: #FFFFFF; font-size: 13px; font-weight: 600">All platforms</button>
+<button type="button" style="flex: none; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px">4P · South · Ranked</button>
+<button type="button" style="flex: none; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px">13 weeks</button>
+<button type="button" style="flex: none; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; font-size: 13px">Filters ▾</button>
+</div>
+
+<div style="padding: 8px 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 12px"><div style="font-size: 12px; color: #5B616E">Avg placement</div><div style="font-family: 'Space Grotesk'; font-size: 26px; font-weight: 600">2.41</div></div>
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 12px"><div style="font-size: 12px; color: #5B616E">Games</div><div style="font-family: 'Space Grotesk'; font-size: 26px; font-weight: 600">1,284</div></div>
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 12px"><div style="font-size: 12px; color: #5B616E">Win rate</div><div style="font-family: 'Space Grotesk'; font-size: 26px; font-weight: 600">22.8%</div></div>
+<div style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 12px"><div style="font-size: 12px; color: #5B616E">Deal-in rate</div><div style="font-family: 'Space Grotesk'; font-size: 26px; font-weight: 600">11.9%</div></div>
+</div>
+
+<div style="margin: 8px 16px; background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 16px">Placements</h2>
+<div style="display: flex; height: 28px; border-radius: 6px; overflow: hidden; font-size: 11px; font-weight: 600">
+<div style="width: 27.6%; background: #1E3A8A; color: #FFFFFF; display: flex; align-items: center; justify-content: center">27.6</div>
+<div style="width: 25.3%; background: #5B8DEF; display: flex; align-items: center; justify-content: center">25.3</div>
+<div style="width: 27%; background: #C4C7CF; display: flex; align-items: center; justify-content: center">27.0</div>
+<div style="width: 20.1%; background: #E8590C; display: flex; align-items: center; justify-content: center">20.1</div>
+</div>
+<div style="display: flex; justify-content: space-between; font-size: 11px; color: #5B616E"><span>1st</span><span>2nd</span><span>3rd</span><span>4th</span></div>
+</div>
+
+<div style="margin: 8px 16px; background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 16px">Rank progress</h2>
+<div role="group" aria-label="Rank chart platform" style="display: flex; gap: 8px"><button type="button" aria-pressed="true" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 10px 0 4px; border-radius: 999px; border: 1px solid #0F6E66; background: #E3F2EF; color: #0A4F49; font-size: 12px; font-weight: 600"><img src="/_blob/9b1188e6dd8efb5c77be8b86131b3356" alt="" style="width: 20px; height: 20px; border-radius: 50%">Mahjong Soul</button><button type="button" aria-pressed="false" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 10px 0 4px; border-radius: 999px; border: 1px solid #D5D5CF; background: #FFFFFF; color: #15171C; font-size: 12px"><img src="/_blob/457615ed98121fa99d4278456336ae89" alt="" style="width: 20px; height: 20px; border-radius: 50%">Tenhou</button></div>
+<svg viewBox="0 0 340 120" role="img" aria-label="Rank points trending upward" style="width: 100%; height: 120px">
+<line x1="0" y1="110" x2="340" y2="110" stroke="#D5D5CF"></line>
+<polyline fill="none" stroke="#0F6E66" stroke-width="2.5" points="0,100 25,94 50,98 75,84 100,86 125,72 150,76 175,62 200,54 225,58 250,48 275,36 300,40 320,28 340,22"></polyline>
+</svg>
+</div>
+
+<div style="margin: 8px 16px; display: flex; gap: 4px; border-bottom: 1px solid #E3E3DE; overflow-x: auto">
+<button type="button" style="flex: none; height: 44px; padding: 0 12px; border: 0; border-bottom: 2px solid #0F6E66; background: transparent; font-weight: 600; font-size: 14px">Games</button>
+<button type="button" style="flex: none; height: 44px; padding: 0 12px; border: 0; background: transparent; color: #5B616E; font-size: 14px">Stats</button>
+<button type="button" style="flex: none; height: 44px; padding: 0 12px; border: 0; background: transparent; color: #5B616E; font-size: 14px">Riichi</button>
+<button type="button" style="flex: none; height: 44px; padding: 0 12px; border: 0; background: transparent; color: #5B616E; font-size: 14px">Opponents</button>
+</div>
+
+<div style="padding: 0 16px; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ games }}" as="g" hint-placeholder-count="5">
+<a href="#" style="{{ g.cardStyle }}">
+<span style="{{ g.badge }}">{{ g.place }}</span>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600"><img src="{{ g.logo }}" alt="" style="width: 16px; height: 16px; border-radius: 50%">{{ g.lobby }}</span>
+<span style="font-size: 12px; color: #5B616E">{{ g.date }}</span>
+<sc-if value="{{ g.hasEvent }}" hint-placeholder-val="{{ false }}"><span style="{{ g.eventStyle }}">{{ g.event }}</span></sc-if>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+<b style="font-family: 'Space Grotesk'; font-size: 16px">{{ g.result }}</b>
+<span style="font-size: 12px; color: #5B616E">{{ g.delta }} rank pt</span>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const badge = (n) => {
+      const m = { 1: ['#1E3A8A', '#FFFFFF'], 2: ['#5B8DEF', '#15171C'], 3: ['#C4C7CF', '#15171C'], 4: ['#E8590C', '#15171C'] }[n];
+      return `flex: none; display: inline-flex; width: 36px; height: 36px; border-radius: 8px; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; background: ${m[0]}; color: ${m[1]}`;
+    };
+    const MS = '/_blob/9b1188e6dd8efb5c77be8b86131b3356', TH = '/_blob/457615ed98121fa99d4278456336ae89';
+    const g = (place, logo, lobby, date, result, delta, event, kind) => ({ place, logo, lobby, date, result, delta, badge: badge(place),
+      hasEvent: !!event, event,
+      eventStyle: `align-self: flex-start; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: ${kind === 'up' ? '#1E3A8A' : '#E8590C'}; color: ${kind === 'up' ? '#FFFFFF' : '#15171C'}`,
+      cardStyle: `display: flex; align-items: center; gap: 12px; background: ${event ? (kind === 'up' ? '#F2F5FD' : '#FFF6F0') : '#FFFFFF'}; border: 1px solid #E3E3DE; border-radius: 12px; padding: 12px; text-decoration: none; color: #15171C` });
+    return { games: [
+      g(1, MS, 'Jade South', 'Today 21:14', '+63.3', '+123', 'Promoted → Master 2', 'up'),
+      g(3, TH, '特上南', 'Today 20:31', '−12.0', '±0', '', ''),
+      g(2, MS, 'Throne East', 'Today 19:50', '+9.8', '+29', '', ''),
+      g(4, TH, '特上南', 'Yesterday 23:02', '−46.0', '−105', 'Demoted → 七段', 'down'),
+      g(1, TH, '特上南', 'Yesterday 22:19', '+52.1', '+75', '', '')
+    ] };
+  }
+}
+</script>
+</body>
+</html>

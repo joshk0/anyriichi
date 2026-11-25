@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Submit game logs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F6F3}
+a{color:#0F6E66}a:hover{color:#0A4F49}
+button,textarea,input{font:inherit}
+</style>
+</helmet>
+<div style="position: relative; font-family: Inter, 'Noto Sans JP', system-ui, sans-serif; color: #15171C; background: #F6F6F3; min-height: 1000px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #E3E3DE">
+<div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 10px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #15171C">
+<span style="width: 30px; height: 38px; border-radius: 5px; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; font-family: 'Noto Sans JP'; font-weight: 700; font-size: 18px; color: #C2410C">中</span>
+<span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 22px">anyRiichi</span>
+</a>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; display: flex; flex-direction: column; gap: 20px">
+<div>
+<h1 style="margin: 0 0 6px; font-family: 'Space Grotesk'; font-size: 30px">Submit game logs</h1>
+<p style="margin: 0; font-size: 15px; color: #5B616E; max-width: 780px">Paste Tenhou or Mahjong Soul log links. Full logs unlock detailed stats (win rate, deal-in, riichi…). Ranked games only.</p>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+<label for="logs" style="font-weight: 600; font-size: 15px">Log links or IDs — one per line, or paste one at a time</label>
+<textarea id="logs" rows="5" style="border: 1px solid #D5D5CF; border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; resize: vertical; background: #FAFAF8">https://tenhou.net/0/?log=2026112505gm-0089-0000-1a2b3c4d&amp;tw=0
+https://game.mahjongsoul.com/?paipu=261125-4f2c1a9e-8b7d-4e3a-9c61-2d5e7f8a9b0c_a812345678
+2026112420gm-0009-1234-77aa88bb
+https://game.mahjongsoul.com/?paipu=261124-0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d</textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<button type="button" style="height: 42px; padding: 0 20px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-weight: 600">Submit 2 logs</button>
+<span style="font-size: 13px; color: #5B616E">2 ready · 2 not accepted</span>
+</div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px">
+<thead><tr style="text-align: left; color: #5B616E; font-size: 12px"><th style="padding: 8px; font-weight: 600">Detected</th><th style="padding: 8px; font-weight: 600">Log</th><th style="padding: 8px; font-weight: 600">Room</th><th style="padding: 8px; font-weight: 600">Status</th></tr></thead>
+<tbody>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+<tr style="border-top: 1px solid #F0F0EC">
+<td style="padding: 10px 8px"><img src="{{ r.logo }}" alt="{{ r.platform }}" style="width: 22px; height: 22px; border-radius: 50%; vertical-align: middle"></td>
+<td style="padding: 10px 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{ r.id }}</td>
+<td style="padding: 10px 8px">{{ r.room }}</td>
+<td style="padding: 10px 8px"><span style="{{ r.style }}">{{ r.status }}</span></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 19px">Games missing a log</h2>
+<span style="font-size: 13px; color: #5B616E">{{ remaining }} Tenhou games · most recent first</span>
+</div>
+<p style="margin: 0; font-size: 13px; color: #5B616E">We know these games happened (from Tenhou's public results) but have no full log. Find them in your Tenhou history and paste the link above.</p>
+<sc-for list="{{ visible }}" as="m" hint-placeholder-count="4">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #F0F0EC; font-size: 13px">
+<span style="color: #5B616E; width: 110px">{{ m.date }}</span>
+<span style="width: 90px">{{ m.room }}</span>
+<span style="{{ m.badge }}">{{ m.place }}</span>
+<span style="flex: 1 1 260px; color: #5B616E">{{ m.table }}</span>
+<button type="button" onClick="{{ m.open }}" style="height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-size: 13px; font-weight: 600">Submit log</button>
+</div>
+</sc-for>
+</section>
+</div>
+
+<aside style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+<section style="background: #15171C; color: #FFFFFF; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 19px">Browser extension</h2>
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<img src="/_blob/9b1188e6dd8efb5c77be8b86131b3356" alt="" style="width: 28px; height: 28px; border-radius: 50%">
+<span style="font-size: 13px; color: #D4D6DB; line-height: 1.5"><b style="color: #FFFFFF">Mahjong Soul</b> — imports your full ranked history in one pass, then keeps it synced.</span>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<img src="/_blob/457615ed98121fa99d4278456336ae89" alt="" style="width: 28px; height: 28px; border-radius: 50%">
+<span style="font-size: 13px; color: #D4D6DB; line-height: 1.5"><b style="color: #FFFFFF">Tenhou</b> — submits each game you finish in the browser, plus your last 40 games.</span>
+</div>
+<a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 8px; background: #FFFFFF; color: #15171C; text-decoration: none; font-weight: 600; font-size: 14px">Get the extension</a>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 17px">Tenhou premium members</h2>
+<p style="margin: 0; font-size: 13px; color: #5B616E; line-height: 1.5">Tenhou's log search (mjlog.html) lists your full history. Enter your Tenhou ID and we'll import it — and instantly verify your Tenhou account if it isn't verified yet.</p>
+<label for="tid" style="font-size: 12px; font-weight: 600; color: #5B616E">Tenhou ID</label>
+<div style="display: flex; gap: 8px">
+<input id="tid" placeholder="ID-xxxxxxxx-xxxxxxxx" style="flex: 1; min-width: 0; height: 38px; border: 1px solid #D5D5CF; border-radius: 8px; padding: 0 10px; font-size: 13px">
+<button type="button" style="height: 38px; padding: 0 12px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-weight: 600; font-size: 13px">Import</button>
+</div>
+<span style="font-size: 12px; color: #5B616E">Your Tenhou ID is used once for this import and never saved.</span>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E3E3DE; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Space Grotesk'; font-size: 17px">Detailed-stats coverage</h2>
+<div style="display: flex; justify-content: space-between; font-size: 14px"><span>Mahjong Soul</span><b>902 / 902</b></div>
+<div style="height: 8px; background: #EEEEEA; border-radius: 4px; overflow: hidden"><div style="width: 100%; height: 100%; background: #0F6E66"></div></div>
+<div style="display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px"><span>Tenhou</span><b>41 / 382</b></div>
+<div style="height: 8px; background: #EEEEEA; border-radius: 4px; overflow: hidden"><div style="width: 11%; height: 100%; background: #0F6E66"></div></div>
+</section>
+</aside>
+</div>
+</main>
+<sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(21,23,28,0.45); display: flex; align-items: flex-start; justify-content: center; padding-top: 220px">
+<div role="dialog" aria-modal="true" aria-labelledby="mtitle" style="width: min(520px, calc(100% - 32px)); background: #FFFFFF; border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.25)">
+<h2 id="mtitle" style="margin: 0; font-family: 'Space Grotesk'; font-size: 20px">Submit log for this game</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 13px; padding: 10px 12px; background: #F6F6F3; border-radius: 8px">
+<b>{{ cur.date }}</b><span>{{ cur.room }}</span><span style="{{ cur.badge }}">{{ cur.place }}</span><span style="color: #5B616E">{{ cur.table }}</span>
+</div>
+<label for="murl" style="font-size: 13px; font-weight: 600">Tenhou log URL or ID</label>
+<input id="murl" placeholder="https://tenhou.net/0/?log=…" style="height: 42px; border: 1px solid #D5D5CF; border-radius: 8px; padding: 0 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+<span style="font-size: 12px; color: #5B616E">We check that the log matches this game's time, room and players.</span>
+<div style="display: flex; justify-content: flex-end; gap: 8px">
+<button type="button" onClick="{{ close }}" style="height: 40px; padding: 0 16px; border: 1px solid #D5D5CF; border-radius: 8px; background: #FFFFFF; font-size: 14px">Cancel</button>
+<button type="button" onClick="{{ submit }}" style="height: 40px; padding: 0 18px; border: 0; border-radius: 8px; background: #0F6E66; color: #FFFFFF; font-weight: 600; font-size: 14px">Submit log</button>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MS = '/_blob/9b1188e6dd8efb5c77be8b86131b3356', TH = '/_blob/457615ed98121fa99d4278456336ae89';
+    const pill = (bg, fg) => `font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: ${bg}; color: ${fg}`;
+    const ok = pill('#E3F2EF', '#0A4F49'), bad = pill('#FFF1E6', '#9A3412');
+    const badge = (n) => {
+      const m = { 1: ['#1E3A8A', '#FFFFFF'], 2: ['#5B8DEF', '#15171C'], 3: ['#C4C7CF', '#15171C'], 4: ['#E8590C', '#15171C'] }[n];
+      return `display: inline-flex; width: 26px; height: 26px; border-radius: 6px; align-items: center; justify-content: center; font-weight: 700; background: ${m[0]}; color: ${m[1]}`;
+    };
+    const all = [
+      ['Nov 25 20:31', '特上南 4P', 3, 'PlayerE · PlayerF · PlayerG'],
+      ['Nov 25 19:02', '特上南 4P', 1, 'PlayerT · PlayerU · PlayerV'],
+      ['Nov 24 21:15', '特上東 4P', 2, 'PlayerW · PlayerX · PlayerY'],
+      ['Nov 23 22:48', '特上南 4P', 4, 'PlayerZ · PlayerAA · PlayerAB'],
+      ['Nov 23 21:30', '特上南 4P', 2, 'PlayerAC · PlayerAD · PlayerAE'],
+      ['Nov 22 23:10', '上級南 4P', 1, 'PlayerAF · PlayerAG · PlayerAH'],
+      ['Nov 22 22:05', '特上南 4P', 3, 'PlayerAI · PlayerAJ · PlayerAK'],
+      ['Nov 21 20:44', '特上東 4P', 4, 'PlayerAL · PlayerAM · PlayerAN']
+    ];
+    const done = (this.state && this.state.done) || [];
+    const openIdx = this.state ? this.state.open : null;
+    const pending = all.map((r, idx) => ({ idx, date: r[0], room: r[1], place: r[2], table: r[3], badge: badge(r[2]) }))
+      .filter((m) => !done.includes(m.idx));
+    const visible = pending.slice(0, 4).map((m) => ({ ...m, open: () => this.setState({ open: m.idx }) }));
+    const cur = pending.find((m) => m.idx === openIdx) || { date: '', room: '', place: '', table: '', badge: '' };
+    return {
+      rows: [
+        { logo: TH, platform: 'Tenhou', id: '2026112505gm-0089-0000-1a2b3c4d', room: '特上南 4P', status: 'Ready', style: ok },
+        { logo: MS, platform: 'Mahjong Soul', id: '261125-4f2c1a9e-…-2d5e7f8a9b0c', room: 'Jade South 4P', status: 'Ready', style: ok },
+        { logo: TH, platform: 'Tenhou', id: '2026112420gm-0009-1234-77aa88bb', room: 'Lobby C1234', status: 'Not ranked — not accepted', style: bad },
+        { logo: MS, platform: 'Mahjong Soul', id: '261124-0a1b2c3d-…-9e0f1a2b3c4d', room: 'Friendly room', status: 'Not ranked — not accepted', style: bad }
+      ],
+      visible, cur, remaining: 341 - done.length,
+      modalOpen: openIdx !== null && openIdx !== undefined,
+      close: () => this.setState({ open: null }),
+      submit: () => this.setState({ done: done.concat([openIdx]), open: null })
+    };
+  }
+}
+</script>
+</body>
+</html>
