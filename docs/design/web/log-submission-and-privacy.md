@@ -24,7 +24,7 @@ Status: **Accepted** (D-007, D-008, D-012, D-013, D-015, D-019) with open sub-qu
 - The worker fetches the log itself from the platform; submissions are just IDs.
 
 ### Missing-logs list (D-019)
-Games known from Tenhou public results (`scb`) for the user's claimed player that have no full log → listed with date/room/placement/table so the user can find and paste them.
+Games known from Tenhou public results (`scb`) for the user's claimed player that have no full log → listed with date/room/placement/table. Each row has a **Submit log** button opening a modal for that game's log URL; the submitted log must match the game (start hour, room, players). On success the row disappears and the next missing game is shown (D-025).
 
 ## Visibility (D-007, D-008)
 Each user has a **log visibility** setting applied to logs they submitted / logs of their verified players:
