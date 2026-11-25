@@ -18,6 +18,7 @@ anyRiichi is a web app that aggregates riichi mahjong game records across platfo
 - Record memory in this repository (`memory/` or this file), **not** in the Claude account's private memory — the project may move between Claude accounts.
 - Platform credentials and test game IDs live in `.env` (git-ignored). Never commit them, never paste them into issues/PRs/docs.
 - Respect each platform's usage rules (e.g. Tenhou raw listing polled no more often than every 20 minutes).
+- **Credit others in `THANKS.md`.** Whenever we use information, data, code or ideas from an existing project or site, add (or extend) its entry in the top-level `THANKS.md` in the same change: who, what we took, where it lives. Ported code must respect the source licence; unlicensed projects are read for understanding only.
 - **Pre-prototype git workflow:** work in the local tree, let the diff build up, then commit and push directly to `main` (no small PRs). Once we reach a workable prototype, switch to targeted, readable PRs. Never push to a branch whose PR is already merged.
 
 ## Commands
