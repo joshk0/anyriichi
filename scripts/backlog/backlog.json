@@ -523,6 +523,16 @@
     "area:web"
    ],
    "body": "Q-020, Q-021"
+  },
+  {
+   "milestone": "M4 Analysis & community",
+   "title": "Tenhou: running R rating + per-game R change (Tenhou rows only)",
+   "labels": [
+    "area:worker",
+    "area:web",
+    "platform:tenhou"
+   ],
+   "body": "D-026. Nodocchi-style R computation seeded/anchored from <UN rate> in full logs; show R and ΔR in Tenhou game rows and player header; omit for Mahjong Soul. See docs/design/storage/statistics-model.md §2."
   }
  ]
 }

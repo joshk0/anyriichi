@@ -18,6 +18,7 @@ Ties: split uma evenly (Q-043). Tables per ruleset live in `/packages/shared/rul
 ## 2. Rank points per game
 - **Tenhou** (Nodocchi constants): gains 4p 1st/2nd (3p 1st) — 般 +20/+10 (+30), 上 +40/+10 (+50), 特 +50/+20 (+70), 鳳 +60/+30 (+90); 南 ×1.5; last-place loss by dan (初段 −30 … 十段 −120, kyu 0/−10/−20); thresholds per dan; historical variants before 2017-10-24. Dan is **estimated** by replaying the player's ranked games from their first; anchor when a known dan is observed (Tenhou mjlog `<UN dan=...>`).
 - **Majsoul**: `ceil((score − 25000)/1000 + [15,5,−5,−15][place]) + MODE_DELTA[mode][place]`, minus level penalty on 4th (AK `level.ts`); Majsoul records also carry `gradingScore` → prefer the source value.
+- **Tenhou R (D-026, later):** start 1500; ΔR = (placement base + (table avg R − R)/40) × max(1 − 0.002·games, 0.2); base 4p +30/+10/−10/−30, 3p +30/0/−30 (verify). Seed/re-anchor from `<UN rate>` in full logs; store `rating_before`/`rating_delta` on `game_participants`. Not shown for Mahjong Soul.
 - `rank_event` set when a game crosses a promotion/demotion threshold → highlighted in UI.
 
 ## 3. Placement stats (summary tier — all games)

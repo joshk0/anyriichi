@@ -41,6 +41,7 @@ game_participants(
   rank_pt_delta int null,           -- D-016
   rank_event text null,             -- promoted | demoted | null
   rating_before numeric null,       -- tenhou R if known
+  rating_delta numeric null,        -- tenhou ΔR (D-026)
   primary key (game_id, placement))
 
 hands(                              -- one row per kyoku per game (full logs only)
