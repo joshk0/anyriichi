@@ -31,6 +31,8 @@
     { "name": "Konten 1 promotes to Konten 2", "levelId": 10701, "points": 1980, "mode": 16, "score": 50000, "placement": 1, "expect": { "delta": 50, "levelId": 10702, "points": 1000, "event": "promotion" } },
     { "name": "Saint 3 promotes to Konten 1", "levelId": 10503, "points": 8950, "mode": 16, "score": 30000, "placement": 2, "expect": { "delta": 70, "levelId": 10701, "points": 1000, "event": "promotion" } },
     { "name": "3p Saint 1, throne south 3rd", "levelId": 20501, "points": 3000, "mode": 26, "score": 10000, "placement": 3, "expect": { "delta": -280, "levelId": 20501, "points": 2720, "event": null } },
+    { "name": "Adept 1, bronze south 2nd", "levelId": 10201, "points": 300, "mode": 3, "score": 28000, "placement": 2, "expect": { "delta": 18, "levelId": 10201, "points": 318, "event": null } },
+    { "name": "Adept 3, silver east 4th (penalty 30)", "levelId": 10203, "points": 500, "mode": 5, "score": 15000, "placement": 4, "expect": { "delta": -55, "levelId": 10203, "points": 445, "event": null } },
     { "name": "3p gold east 1st", "levelId": 20301, "points": 600, "mode": 21, "score": 50000, "placement": 1, "expect": { "delta": 85, "levelId": 20301, "points": 685, "event": null } }
   ],
   "tenhouSupported": [

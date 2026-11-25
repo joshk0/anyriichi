@@ -1,10 +1,14 @@
 {
-  "$comment": "Mahjong Soul ranked rules. Source: Amae Koromo (MIT) src/data/types/{level,metadata,gameMode}.ts @ 78bb14534c (2026-11-22). Only Gold/Jade/Throne rooms (what Amae Koromo records); Bronze/Silver not modelled yet. Edit together with worker/internal/rules/data/majsoul.json (a test enforces equality).",
+  "$comment": "Mahjong Soul ranked rules. Source: Amae Koromo (MIT) src/data/types/{level,metadata,gameMode}.ts @ 78bb14534c (2026-11-22). Gold/Jade/Throne from Amae Koromo. 4p Bronze/Silver bonuses from riichi.wiki/Mahjong_Soul + npmahjong.com rank-up guide (agree); their mode ids (2,3,5,6) are inferred from the id pattern, not verified. 3p Bronze/Silver not modelled (no verified bonuses) — use the record's own grading score (D-048). Edit together with worker/internal/rules/data/majsoul.json (a test enforces equality).",
   "scoring": {
     "4": { "startPoints": 25000, "returnPoints": 25000, "uma": [15, 5, -5, -15] },
     "3": { "startPoints": 35000, "returnPoints": 35000, "uma": [15, 0, -15] }
   },
   "modes": {
+    "3":  { "room": "bronze", "players": 4, "length": "south", "placementBonus": [20, 10, 0, 0],   "penaltyTable": "4s" },
+    "6":  { "room": "silver", "players": 4, "length": "south", "placementBonus": [40, 20, 0, 0],   "penaltyTable": "4s" },
+    "2":  { "room": "bronze", "players": 4, "length": "east",  "placementBonus": [10, 5, 0, 0],    "penaltyTable": "4e" },
+    "5":  { "room": "silver", "players": 4, "length": "east",  "placementBonus": [20, 10, 0, 0],   "penaltyTable": "4e" },
     "9":  { "room": "gold",   "players": 4, "length": "south", "placementBonus": [80, 40, 0, 0],   "penaltyTable": "4s" },
     "12": { "room": "jade",   "players": 4, "length": "south", "placementBonus": [110, 55, 0, 0],  "penaltyTable": "4s" },
     "16": { "room": "throne", "players": 4, "length": "south", "placementBonus": [120, 60, 0, 0],  "penaltyTable": "4s", "kontenDelta": [50, 20, -20, -50] },
