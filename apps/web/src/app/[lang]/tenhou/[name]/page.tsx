@@ -27,9 +27,18 @@ async function Player({ params, dict }: { params: PageProps<"/[lang]/tenhou/[nam
       </>
     );
   }
-  // Tenhou tracks 3p and 4p ranks separately; show the latest known rank per mode.
-  const latestRank = (players: number) =>
-    data.recent.find((g) => g.games.rulesets.players === players && g.rank_before !== null)?.rank_before;
+  // Tenhou tracks 3p and 4p ranks separately; show the latest replayed rank (and pt range) per mode.
+  const latestRank = (players: number) => {
+    const g = data.recent.find((g) => g.games.rulesets.players === players && g.est_rank_after !== null);
+    if (!g || g.est_rank_after === null) return null;
+    const pt =
+      g.est_pt_min === null || g.est_pt_max === null
+        ? ""
+        : g.est_pt_min === g.est_pt_max
+          ? dict.player.ptExact.replace("{pt}", String(g.est_pt_min))
+          : dict.player.ptRange.replace("{min}", String(g.est_pt_min)).replace("{max}", String(g.est_pt_max));
+    return { rank: g.est_rank_after, pt };
+  };
   const since = new Date(data.player.first_seen_at).toLocaleDateString(lang, { timeZone: "Asia/Tokyo" });
   const placeLabels = (n: number) => ["1", "2", "3", "4"].slice(0, n).map((k) => dict.placement[k as "1"]);
   return (
@@ -47,7 +56,12 @@ async function Player({ params, dict }: { params: PageProps<"/[lang]/tenhou/[nam
             <section key={m.players} className="flex flex-col gap-3 rounded-xl border border-line bg-card p-5">
               <h2 className="flex items-baseline gap-2 font-display text-lg font-semibold">
                 {m.players === 4 ? dict.player.fourP : dict.player.threeP}
-                {rank != null && <span className="text-sm font-normal text-muted">{tenhouRankName(rank, lang === "ja" ? "ja" : "en")}</span>}
+                {rank && (
+                  <span className="text-sm font-normal text-muted">
+                    {tenhouRankName(rank.rank, lang === "ja" ? "ja" : "en")}
+                    {rank.pt && ` · ${rank.pt}`}
+                  </span>
+                )}
               </h2>
               <dl className="grid grid-cols-3 gap-3 text-sm">
                 <div><dt className="text-muted">{dict.player.games}</dt><dd className="text-xl font-semibold">{m.games}</dd></div>
@@ -76,7 +90,7 @@ async function Player({ params, dict }: { params: PageProps<"/[lang]/tenhou/[nam
             </thead>
             <tbody>
               {data.recent.map((g, i) => (
-                <tr key={i} className="border-b border-line last:border-0">
+                <tr key={i} className={`border-b border-line last:border-0 ${g.rank_event === "promotion" ? "bg-accent-soft" : g.rank_event === "demotion" ? "bg-place-4/10" : ""}`}>
                   <td className="px-4 py-2 whitespace-nowrap">
                     {new Date(g.games.started_at).toLocaleString(lang, { timeZone: "Asia/Tokyo", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                   </td>
@@ -84,12 +98,20 @@ async function Player({ params, dict }: { params: PageProps<"/[lang]/tenhou/[nam
                   <td className={`px-4 py-2 font-semibold ${placeTint[g.placement - 1]}`}>{dict.placement[String(g.placement) as "1"]}</td>
                   <td className="px-4 py-2 text-right tabular-nums">{g.final_score?.toLocaleString(lang) ?? "—"}</td>
                   <td className="px-4 py-2 text-right tabular-nums">{signed(Number(g.result_pt))}</td>
-                  <td className="px-4 py-2 text-right tabular-nums">{g.rank_pt_delta == null ? "—" : g.rank_pt_delta > 0 ? `+${g.rank_pt_delta}` : g.rank_pt_delta}</td>
+                  <td className="px-4 py-2 text-right tabular-nums whitespace-nowrap">
+                    {g.rank_event && (
+                      <span className={`mr-2 rounded-full px-2 py-0.5 text-xs font-semibold ${g.rank_event === "promotion" ? "bg-accent text-white" : "bg-place-4 text-white"}`}>
+                        {dict.player[g.rank_event]}
+                      </span>
+                    )}
+                    {g.rank_pt_delta == null ? "—" : g.rank_pt_delta > 0 ? `+${g.rank_pt_delta}` : g.rank_pt_delta}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <p className="text-xs text-muted">{dict.player.rankEstimated}</p>
         <p className="text-xs text-muted">{dict.player.sample.replace("{n}", String(data.sampled)).replace("{since}", since)}</p>
       </section>
     </>

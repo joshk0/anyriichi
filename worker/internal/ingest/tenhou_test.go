@@ -222,3 +222,52 @@ func TestFetchLogRejects(t *testing.T) {
 		}
 	}
 }
+
+func TestReplayRanksAfterIngest(t *testing.T) {
+	ing, _ := setup(t)
+	ctx := context.Background()
+	if err := ing.Poll(ctx); err != nil {
+		t.Fatal(err)
+	}
+	payload, _ := json.Marshal(fetchPayload{LogID: logID})
+	if err := ing.FetchLog(ctx, queue.Job{Payload: payload}); err != nil {
+		t.Fatal(err)
+	}
+	n, err := ing.ReplayRanks(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n == 0 {
+		t.Fatal("no players replayed")
+	}
+	var left int
+	_ = ing.pool.QueryRow(ctx, "select count(*) from private.rank_replay_queue").Scan(&left)
+	if left != 0 {
+		t.Errorf("queue not drained: %d", left)
+	}
+	type est struct {
+		rank, min, max *int32
+		event          *string
+	}
+	get := func(name string) est {
+		var e est
+		if err := ing.pool.QueryRow(ctx, `select est_rank_after, est_pt_min, est_pt_max, rank_event from game_participants gp
+			join games g on g.id = gp.game_id join rulesets r on r.id = g.ruleset_id where r.code = '00a9' and name = $1`, name).
+			Scan(&e.rank, &e.min, &e.max, &e.event); err != nil {
+			t.Fatal(err)
+		}
+		return e
+	}
+	// Carol is 天鳳位: terminal, known.
+	if c := get("Carol"); c.rank == nil || *c.rank != 20 || c.event != nil {
+		t.Errorf("Carol: %+v", c)
+	}
+	// Dave (2級, anchor) 3rd: +0, pt somewhere in [0, 99].
+	if d := get("Dave"); d.rank == nil || *d.rank != 8 || *d.min != 0 || *d.max != 99 {
+		t.Errorf("Dave: %+v", d)
+	}
+	// Alice (7段) 1st in 鳳凰南 (+90): may have crossed 2800 → rank after unknown.
+	if a := get("Alice"); a.rank != nil || a.event != nil {
+		t.Errorf("Alice: %+v", a)
+	}
+}

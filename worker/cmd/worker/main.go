@@ -101,6 +101,9 @@ func main() {
 		q.Register(queue.Kind{Name: ingest.JobFetchTenhouLog, Concurrency: 1, Timeout: 2 * time.Minute, Handler: th.FetchLog})
 		// Poll persists its last run in the DB, so RunAtStart can't exceed the 20-minute minimum.
 		s.Add(scheduler.Job{Name: "tenhou-raw-poll", Interval: cfg.TenhouPollInterval, RunAtStart: true, Run: th.Poll})
+		// Dan/pt replay for players whose games changed (queued by ingest).
+		s.Add(scheduler.Job{Name: "tenhou-rank-replay", Interval: time.Minute, RunAtStart: true,
+			Run: func(ctx context.Context) error { _, err := th.ReplayRanks(ctx); return err }})
 		wg.Add(1)
 		go func() { defer wg.Done(); q.Run(ctx) }()
 	}
@@ -120,9 +123,11 @@ func main() {
 //
 //	worker enqueue <tenhou log id or URL>…   queue full-log fetches (as a submission)
 //	worker reparse                           re-derive rows from stored raw logs (no network)
+//	worker replay                            re-run the dan/pt replay for every player
 func runCommand(cfg config.Config, args []string) int {
-	if !(args[0] == "enqueue" && len(args) >= 2) && !(args[0] == "reparse" && len(args) == 1) {
-		fmt.Fprintln(os.Stderr, "usage: worker enqueue <tenhou log id or URL>... | worker reparse")
+	oneArg := len(args) == 1 && (args[0] == "reparse" || args[0] == "replay")
+	if !(args[0] == "enqueue" && len(args) >= 2) && !oneArg {
+		fmt.Fprintln(os.Stderr, "usage: worker enqueue <tenhou log id or URL>... | worker reparse | worker replay")
 		return 2
 	}
 	ctx := context.Background()
@@ -140,6 +145,19 @@ func runCommand(cfg config.Config, args []string) int {
 			return 1
 		}
 		fmt.Printf("reparsed %d logs\n", n)
+		return 0
+	}
+	if args[0] == "replay" {
+		if _, err := th.QueueReplayAll(ctx); err != nil {
+			fmt.Fprintln(os.Stderr, "replay:", err)
+			return 1
+		}
+		n, err := th.ReplayRanks(ctx)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "replay:", err)
+			return 1
+		}
+		fmt.Printf("replayed %d players\n", n)
 		return 0
 	}
 	code := 0

@@ -15,6 +15,10 @@ export interface GameRow {
   rank_pt_delta: number | null;
   rank_before: number | null;
   final_score: number | null;
+  est_rank_after: number | null;
+  est_pt_min: number | null;
+  est_pt_max: number | null;
+  rank_event: "promotion" | "demotion" | null;
   games: {
     started_at: string;
     duration_min: number | null;
@@ -62,7 +66,7 @@ export async function getTenhouPlayer(name: string): Promise<TenhouPlayer | null
   if (!player) return null;
   const { data: rows } = await rest<GameRow[]>(
     `game_participants?player_id=eq.${player.id}` +
-      `&select=placement,result_pt,rank_pt_delta,rank_before,final_score,games!inner(started_at,duration_min,has_full_log,rulesets!inner(players,length,lobby,speed))` +
+      `&select=placement,result_pt,rank_pt_delta,rank_before,final_score,est_rank_after,est_pt_min,est_pt_max,rank_event,games!inner(started_at,duration_min,has_full_log,rulesets!inner(players,length,lobby,speed))` +
       `&order=games(started_at).desc&limit=${STATS_LIMIT}`,
   );
   const modes = new Map<number, ModeStats>();

@@ -34,6 +34,10 @@ type GameParticipant struct {
 	RankBefore   pgtype.Int4    `json:"rank_before"`
 	RatingBefore pgtype.Numeric `json:"rating_before"`
 	RankPtDelta  pgtype.Int4    `json:"rank_pt_delta"`
+	EstRankAfter pgtype.Int2    `json:"est_rank_after"`
+	EstPtMin     pgtype.Int4    `json:"est_pt_min"`
+	EstPtMax     pgtype.Int4    `json:"est_pt_max"`
+	RankEvent    *string        `json:"rank_event"`
 }
 
 type Player struct {
@@ -72,6 +76,11 @@ type PrivateHandPlayerStat struct {
 	DealInValue  pgtype.Int4 `json:"deal_in_value"`
 	Yaku         []int16     `json:"yaku"`
 	ScoreDelta   int32       `json:"score_delta"`
+}
+
+type PrivateRankReplayQueue struct {
+	PlayerID int64     `json:"player_id"`
+	QueuedAt time.Time `json:"queued_at"`
 }
 
 type PrivateTenhouLog struct {

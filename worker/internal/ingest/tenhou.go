@@ -183,12 +183,14 @@ func (t *Tenhou) IngestResults(ctx context.Context, kind string, hour time.Time,
 	defer func() { _ = tx.Rollback(context.WithoutCancel(ctx)) }()
 	qtx := t.q.WithTx(tx)
 	var batchErr error
+	gameIDs := make([]int64, 0, len(params))
 	if len(params) > 0 {
 		br := qtx.UpsertTenhouSummary(ctx, params)
-		br.QueryRow(func(i int, _ int64, err error) {
+		br.QueryRow(func(i int, id int64, err error) {
 			if err != nil && batchErr == nil {
 				batchErr = fmt.Errorf("line %d: %w", i, err)
 			}
+			gameIDs = append(gameIDs, id)
 		})
 		if err := br.Close(); err != nil && batchErr == nil {
 			batchErr = err
@@ -196,6 +198,9 @@ func (t *Tenhou) IngestResults(ctx context.Context, kind string, hour time.Time,
 	}
 	if batchErr != nil {
 		return 0, skipped, 0, batchErr
+	}
+	if err := qtx.QueueRankReplayForGames(ctx, gameIDs); err != nil {
+		return 0, skipped, 0, err
 	}
 	if t.cfg.FetchHououLogs {
 		for _, id := range logIDs {
@@ -347,6 +352,9 @@ func (t *Tenhou) storeLog(ctx context.Context, logID string, l *tenhou.Log, raw 
 	gameID, err := qtx.UpsertTenhouFullLog(ctx, p)
 	if err != nil {
 		return 0, fmt.Errorf("upsert game: %w", err)
+	}
+	if err := qtx.QueueRankReplayForGames(ctx, []int64{gameID}); err != nil {
+		return 0, err
 	}
 	if err := qtx.DeleteHands(ctx, gameID); err != nil {
 		return 0, err
