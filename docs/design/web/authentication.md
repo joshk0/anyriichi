@@ -22,8 +22,8 @@ Status: **Accepted** (D-003, D-009, D-010, D-011) · Related: [user model](../st
 - Unverified claims still show stats on the user's page; privileged actions (privacy settings applied to that player, profile hiding — Q-010) require `verified`.
 
 ### Tenhou verification (D-011)
-1. **25 ranked logs**: the claim auto-verifies when the claiming user has submitted 25 ranked-game logs containing that player name. Proposed tightening (Q-022): count only games played after the claim was opened, spread over ≥ 5 distinct days.
-2. **ID secret** (optional, instant) — mechanism TBD (Q-025); never store the secret in plaintext.
+1. **25 ranked logs**: the claim auto-verifies when the claiming user has submitted 25 ranked-game logs containing that player name. No further conditions (D-022).
+2. **ID secret** (optional, instant) — used once to prove ownership, then deleted ("Your login information will be deleted after verifying your account."). Mechanism TBD (Q-025).
 3. **Manual review** — "This account is claimed by someone else" → operator reviews evidence, may transfer.
 - Auto-verified claims can be **revoked** by a stronger proof (ID secret / review).
 

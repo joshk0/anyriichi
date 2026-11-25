@@ -11,10 +11,10 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-013 | Privacy | When table-mates choose different visibility, does the **strictest** setting among claimed participants win, or each uploader's choice? (Tenhou logs show all 4 hands.) | Owner | Open |
 | Q-020 | Auth | LINE login for JP users (custom OIDC)? (post-v1) | Owner | Deferred |
 | Q-021 | Auth | Apple login (needs $99/yr Apple dev account)? (post-v1) | Owner | Deferred |
-| Q-022 | Auth | Tenhou verification tightening: require logs played after claim start + spread over ≥5 days? Exact numbers? | Owner | Proposed (D-011) |
+| Q-022 | Auth | Tenhou verification tightening (post-claim logs, ≥5 days)? | Owner | **Resolved → D-022 (no conditions)** |
 | Q-023 | Auth | Majsoul verification: extension-based (token proves account) vs. signature-nonce via `fetchAccountInfo`? Both? | Owner | Open |
 | Q-024 | Auth | Can two users hold **unverified** claims on the same player? (proposal: yes, until one verifies) | Owner | Open |
-| Q-025 | Auth | How is the Tenhou "ID secret" verified without storing it? (login check via Tenhou? hash compare?) — research needed | Claude | Open |
+| Q-025 | Auth | How is the Tenhou ID secret verified? Implied by D-022: we use the login info once to prove ownership, then delete it. Mechanism (log in to Tenhou? read account info?) — research needed | Claude | Open |
 | Q-030 | Legal | Email C-EGG (support@c-egg.com) for explicit permission? (owner chose to follow rules: no public log links) | Owner | Open |
 | Q-031 | Tenhou | Backfill beyond the ~1 year in `list.cgi?old`: yearly `scraw*.zip` currently 404 — where to get history (2009–2025)? Ask Nodocchi's author? | Claude/Owner | Open |
 | Q-032 | Tenhou | `mjlog2json.cgi` returns empty body to curl — what headers does it need? (fallback: convert XML ourselves) | Claude | Open |

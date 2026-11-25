@@ -241,13 +241,13 @@
   },
   {
    "milestone": "M1 Tenhou MVP",
-   "title": "Tenhou verification by 25 ranked logs (with proposed tightening) + manual review request",
+   "title": "Tenhou verification by 25 ranked logs + manual review request",
    "labels": [
     "area:web",
     "area:worker",
     "platform:tenhou"
    ],
-   "body": "D-011, Q-022. ID-secret path depends on Q-025."
+   "body": "D-011, D-022. ID-secret path depends on Q-025."
   },
   {
    "milestone": "M1 Tenhou MVP",
