@@ -10,7 +10,7 @@ anyRiichi is a web app that aggregates riichi mahjong game records across platfo
   - `docs/design/decisions.md` — decision log (`D-###`), append-only.
 - `docs/research/` — raw research notes about reference sites, platform APIs and formats. Facts tagged [V] verified / [I] inferred.
 - `memory/` — durable agent memory for this project (see below).
-- Backlog: GitHub issues + GitHub Project on `joshk0/anyriichi`. Use the `gh` CLI.
+- Backlog: GitHub issues + GitHub Project on `joshk0/anyriichi`. Use the `gh` CLI. Initial seed: `scripts/backlog/backlog.json` + `create-backlog.sh` (idempotent).
 
 ## Working rules (from the owner)
 - **Never build a design without confirmation.** Propose first (doc section, ASCII/HTML mockup, or PR), get explicit approval, then implement. Design docs carry a `Status:` line — only `Accepted` designs get implemented.
