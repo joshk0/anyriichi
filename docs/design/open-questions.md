@@ -21,7 +21,7 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-033 | Tenhou | Response format of `tenhou.net/mjlog.html` for premium users (owner setting up paid account, D-038). | Owner | In progress |
 | Q-034 | Tenhou | Should `sca` (個室) / `scf` (大会) results be ingested and shown (filterable), or only ranked `scb`/`scc`? | Owner | **Resolved → D-033** |
 | Q-040 | Data | Confirm tenhou.net/6 JSON as canonical interchange format (D-021). | Owner | **Resolved → D-021** |
-| Q-041 | Data | Store raw logs where? Supabase Storage vs GCS vs R2 (cost/egress). | Claude | Open |
+| Q-041 | Data | Store raw logs where? Supabase Storage vs GCS vs R2 (cost/egress). | Claude | **Resolved → D-039** (Supabase Storage) |
 | Q-042 | Stats | Majsoul rank-point and uma tables per room (Gold/Jade/Throne, 3p/4p, Konten) — verify against official sources. | Claude | Open |
 | Q-043 | Stats | Ties in placement (Tenhou breaks by seat; Majsoul too) — confirm per platform. | Claude | Open |
 | Q-050 | Extension | Extension auth to anyRiichi: Supabase session in extension vs. personal API token? | Claude | Open |
@@ -31,7 +31,7 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-061 | Majsoul | Which server (CN/JP/EN) for our fetcher account? CN supports password login; EN/JP need token refresh flow. | Claude/Owner | Open |
 | Q-062 | Majsoul | Should we ask SAPikachu if AK can share full logs/UUIDs, or collaborate? | Owner | **Resolved → D-034** |
 | Q-070 | Infra | Domain name (anyriichi.com / .net / .app?) and who registers it. | Owner | **Resolved → D-035** |
-| Q-071 | Infra | DB choice & cost: owner asked for a GCP price-out incl. free tiers and overage, and to consider Cloud Firestore (no idle cost, possible secure browser-direct reads) and similar serverless DBs, vs Supabase Free/Pro. Analysis in progress → docs/research/db-cost-analysis.md | Claude → Owner | In progress |
+| Q-071 | Infra | DB choice & cost: owner asked for a GCP price-out incl. free tiers and overage, and to consider Cloud Firestore (no idle cost, possible secure browser-direct reads) and similar serverless DBs, vs Supabase Free/Pro. Analysis in progress → docs/research/db-cost-analysis.md | Claude → Owner | **Resolved → D-039** |
 | Q-072 | Infra | GCP project/billing account ownership; Vercel team vs personal. | Owner | **Resolved → D-035** |
 | Q-080 | UI | Brand: logo/wordmark, colour palette — mockups use a placeholder 中 tile mark + teal. | Owner | **Resolved → D-036** |
 | Q-081 | UI | Logo usage terms for Mahjong Soul / Tenhou icons. | Claude | Open |

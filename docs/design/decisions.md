@@ -42,3 +42,4 @@ Append-only. Each entry: ID, date, decision, rationale, source. Superseding deci
 | D-036 | 2026-11-25 | Branding: **keep the placeholder** (中 tile mark, teal, Inter/Space Grotesk) until before public launch. | Owner (Q-080) |
 | D-037 | 2026-11-25 | Japanese UI text: **Claude-drafted only for now**, flagged for later human review. | Owner (Q-082) |
 | D-038 | 2026-11-25 | Owner will create Chrome Web Store + Firefox AMO accounts and a paid Tenhou account (for mjlog.html). Sample log IDs → `docs/research/sample-logs.md` (owner adding). | Owner (Q-051, Q-033) |
+| D-039 | 2026-11-25 | **Database: Supabase Pro from M1** (~$25/mo Y1, ~$31 Y3), region us-east-1 near Vercel; Micro compute, move to Small at ~10 GB. Free tier for early M0 dev only. Raw logs in Supabase Storage (100 GB incl.). Firestore/Neon/D1/Cloud SQL rejected — see docs/research/db-cost-analysis.md. *(Resolves Q-071, Q-041.)* | Owner (Q-071) |
