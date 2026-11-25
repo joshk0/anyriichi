@@ -37,3 +37,4 @@ Resolve a question when it becomes relevant for implementation; move the answer 
 | Q-081 | UI | Logo usage terms for Mahjong Soul / Tenhou icons. | Claude | Open |
 | Q-082 | i18n | Japanese copy: who reviews translations? | Owner | Open |
 | Q-026 | Auth | Premium import with a Tenhou ID that belongs to a *different* player than the user's already-verified Tenhou claim: block, or ask before switching? | Owner | Open |
+| Q-083 | UI | Rank-progress chart with several platforms: platform picker (chip per linked platform, default most-played; proposed) vs overlay; optional "Compare" view plotting percentile within each platform? | Owner | Open (canvas thread) |
