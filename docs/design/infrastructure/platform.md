@@ -12,7 +12,7 @@ Status: **Accepted** (D-002, D-003, D-004) / **Proposed** (details)
 | Queue | Postgres-backed (river / SKIP LOCKED) | $0 |
 | Raw log storage | Supabase Storage, private bucket (100 GB incl. in Pro) | $0 |
 | Secrets | GCP Secret Manager / VM env file; Vercel env vars; local `.env` (git-ignored) | $0 |
-| DNS/domain | Q-070 | ~$12/yr |
+| DNS/domain | `anyriichi.vercel.app` until the prototype works; then anyriichi.com (D-035, D-044) | $0 → ~$12/yr |
 | CI/CD | GitHub Actions: lint/test/build; Vercel Git integration for web previews per PR; worker deploy job on `main` | $0 |
 | Monitoring | Vercel analytics (free), Cloud Logging, Sentry free tier (optional) | $0 |
 

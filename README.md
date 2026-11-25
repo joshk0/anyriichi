@@ -22,8 +22,10 @@ Requires Node ≥ 22 (pnpm comes via corepack — no global install) and Go ≥ 
 ```sh
 make install      # pnpm install
 make dev          # web app on http://localhost:3000
-make test         # TS + Go tests (shared vectors run in both)
+make test         # TS + Go tests (shared vectors run in both; DB tests need TEST_DATABASE_URL → a disposable Postgres)
 make check        # typecheck + lint + test
-make worker-run   # run the worker locally
+make worker-run   # run the worker locally (set DATABASE_URL to enable the job queue)
+make sqlc         # regenerate worker DB code after editing migrations or queries
+make db-push      # apply supabase/migrations to the linked hosted project
 ```
 Copy `.env.example` to `.env` for local secrets.

@@ -1,11 +1,17 @@
 # Worker architecture
 
-Status: **Proposed** · Related: [platform](../infrastructure/platform.md)
+Status: **Accepted** (queue + scheduler implemented in M0, #7; ingest jobs Proposed) · Related: [platform](../infrastructure/platform.md)
 
 - **Language:** Go (owner preference), standalone module in `/worker`, deployable on its own (single static binary + systemd, or a container).
 - **Runtime:** one always-on process on a GCE e2-micro (D-004). 1 GB RAM / shared vCPU → keep memory bounded, stream gz files.
-- **DB access:** direct Postgres connection to Supabase (pooler, session mode) using a dedicated role; `pgx` + `sqlc`.
-- **Job model:** a Postgres-backed queue (`river` library or a simple `jobs` table with `SELECT … FOR UPDATE SKIP LOCKED`). No extra infra (no Redis). Web app enqueues jobs (e.g. log submission) by inserting rows; worker `LISTEN/NOTIFY` for latency.
+- **DB access:** direct Postgres connection to Supabase (pooler, session mode, pool ≤ 6) with `pgx` + `sqlc`. Currently the `postgres` role; a dedicated least-privilege role is a follow-up before launch.
+- **Job model (implemented, D-043):** own `queue.jobs` table claimed with `SELECT … FOR UPDATE SKIP LOCKED` (not river — the web app must enqueue from TypeScript, and river's schema is Go-client-specific). No extra infra (no Redis).
+  - Schema `queue` is private: not exposed via the Supabase Data API; `anon`/`authenticated` have no access; `service_role` may enqueue. Migration: `supabase/migrations/20261125200000_job_queue.sql`.
+  - Enqueue with `select queue.enqueue(kind, payload, run_at, priority, unique_key, max_attempts)` — returns the id, or null when an active job with the same `(kind, unique_key)` exists; sends `NOTIFY queue_jobs, kind`.
+  - Worker (`worker/internal/queue`): per-kind claim loops (`Concurrency` = politeness limit, e.g. 1 for tenhou.net), per-job timeout, retries with exponential backoff (10 s → 1 h, default 5 attempts), `queue.Permanent(err)` for non-retryable failures, panic recovery. One hijacked connection `LISTEN`s (works through the Supabase session pooler); 30 s poll fallback.
+  - Maintenance (scheduler, every 5 min): rescue `running` jobs locked > 15 min (crashed worker); prune succeeded jobs after 7 days. Failed jobs are kept for inspection.
+  - Queries are typed with sqlc (`worker/internal/db`, `make sqlc`); CI checks the generated code is current and runs DB tests against a Postgres 17 service.
+  - Smoke test: `select queue.enqueue('system.ping', '{"from":"me"}');` → logged by the worker.
 - **Scheduler:** in-process cron (`robfig/cron` or river periodic jobs):
   | Job | Cadence |
   |---|---|
