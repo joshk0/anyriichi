@@ -15,9 +15,32 @@ Status: **Accepted** (D-007, D-008, D-012, D-013, D-015, D-019) with open sub-qu
 | Worker (public feeds) | Tenhou 鳳凰 (`scc`) | ingested automatically, still subject to visibility rules |
 
 ### Detection patterns (validated against `docs/research/sample-logs.md`)
-- **Tenhou:** `(\d{10}gm-[0-9a-f]{4}-\d{4,5}-x?[0-9a-f]{8,16})`, typically inside `tenhou.net/0/?log=…` **or `tenhou.net/3/?log=…`** (both viewer paths occur), with optional `&tw=N` (seat). The 4-hex rule code tells us players/length/lobby/speed before fetching, e.g. `0099` = 3p 南 上級, `0019` = 3p 南 一般, `0001` = 4p 東 一般, `00c1` = 4p 東 上級 **速** (0x40 speed bit — speed lobbies are ranked too).
-- **Mahjong Soul:** `paipu=YYMMDD-<uuid v4>` optionally followed by `_a<digits>` (the account/seat suffix is variable length, e.g. `_a9249`, `_a924963243`). Hosts: `mahjongsoul.game.yo-star.com`, `game.mahjongsoul.com`, `game.maj-soul.com`.
-- **Reject Majsoul anonymised share links:** the "anonymous share" option scrambles the id into non-hex letters (e.g. `joklnq-v0zwv089-a480-6aa5-fgbo-lpnqsjsqro12_a924`). Detect = first segment not 6 digits / uuid not hex → "Anonymous share links aren't supported — use the normal share link."
+- **Tenhou — match the log ID only, ignore the URL.** Viewer paths vary (`/0/`, `/3/`, `/6/`, …) and hosts/params change, so
+  detection never looks at the URL. If this regex matches anywhere in the input, it **is** a Tenhou log (bare ID or inside any URL):
+  ```
+  (?<![0-9A-Za-z])(\d{10}gm-[0-9a-f]{4}-\d{4,5}-x?[0-9a-f]{8,16})(?![0-9A-Za-z])
+  ```
+  Parts: `YYYYMMDDHH` (JST) · `gm` · 4-hex rule code · 4–5 digit lobby (`0000` ranked, `0001` L-lobby, `1xxxx` C-lobby) ·
+  8-hex hash (or `x` + 12-hex obfuscated hash on older client IDs). An optional `tw=N` elsewhere in the input is read separately as the seat hint.
+  The rule code tells players/length/lobby/speed before fetching, e.g. `0099` = 3p 南 上級, `0019` = 3p 南 一般, `0001` = 4p 東 一般,
+  `00c1` = 4p 東 上級 **速** (0x40 speed bit — speed lobbies are ranked too).
+  Test vectors: every Tenhou line in `docs/research/sample-logs.md` (+ bare IDs, IDs inside prose, `/6/` URLs, `x`-prefixed hashes; must not match when followed by extra alphanumerics). Shared between TS and Go via `/packages/shared` test vectors.
+- **Mahjong Soul — full URL required.** A bare `YYMMDD-<uuid>` is too generic to identify the platform, so only full share
+  URLs on one of the three official servers are accepted; the host also tells us the server/zone to fetch from:
+  | Host | Server |
+  |---|---|
+  | `mahjongsoul.game.yo-star.com` | EN (International) |
+  | `game.mahjongsoul.com` | JP |
+  | `game.maj-soul.com` | CN (often with a `/1/` path) |
+  ```
+  https?://(mahjongsoul\.game\.yo-star\.com|game\.mahjongsoul\.com|game\.maj-soul\.com)/[^\s?#]*\?(?:[^\s#]*&)?paipu=(\d{6}-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:_a(\d+))?(?![0-9A-Za-z-])
+  ```
+  Groups: host (→ server), game uuid (`YYMMDD-uuid`), optional `_a<digits>` account/seat suffix (variable length).
+  Hosts corroborated by InjusticeJudge (`injustice_judge/fetch/__init__.py`), which also mentions a legacy CN host
+  `majsoul.union-game.com` — not accepted for now.
+- **Reject Majsoul anonymised share links:** on a known host, a `paipu=` value whose first segment isn't 6 digits / uuid isn't hex
+  (e.g. `joklnq-v0zwv089-a480-6aa5-fgbo-lpnqsjsqro12_a924`) → "Anonymous share links aren't supported — use the normal share link."
+  Test vectors: Majsoul lines in `docs/research/sample-logs.md` + a CN `/1/` URL, a bare id (no match), an unknown host (no match).
 - Room/ranked status for Majsoul is only known after fetching the record (friendly and tournament samples must be rejected post-fetch, D-012).
 
 ### Acceptance rules (D-012)
